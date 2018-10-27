@@ -4,16 +4,19 @@ import axios from 'axios';
 import io from 'socket.io-client';
 import Player from './PlayerComponent';
 import Counter from './CounterComponent';
+import { Redirect } from 'react-router-dom';
 
 class PlayerList extends Component {
   constructor(props) {
     super(props)
     this.state = {
       timer: null,
-      count: 60,
+      count: 10,
+      redirect: false,
       players: null
     }
     this.tick = this.tick.bind(this);
+    this.stopTimer = this.stopTimer.bind(this);
   }
 
   componentDidMount() {
@@ -24,25 +27,45 @@ class PlayerList extends Component {
       .then(response => {
         this.setState({ players: response.data })
       })
+      
   }
 
   componentWillUnmount() {
-    this.clearInterval(this.state.timer);
+    clearInterval(this.state.timer);
   }
 
   tick() {
+    if (this.state.count === 0) {
+      this.setState({
+        timer: null
+      })
+      this.stopTimer();
+      this.setState({
+        redirect: true
+      })
+    }
     this.setState({
       count: this.state.count - 1
     })
+    console.log('count', this.state.timer)
+  }
+
+  stopTimer() {
+    let timer = clearInterval(this.state.timer);
+    this.setState({timer})
   }
 
   render() {
+    if (this.state.redirect) {
+      return (
+        <Redirect to={`/rooms/${this.props.match.params.id}/images`} />
+      )
+    }
     return (
       <div className="PlayerList">
         <div className='CodeCounter'>
         <h1>Put Code Here</h1>
-        {/* <Counter seconds={this.state.seconds}/> */}
-        {this.state.count}
+        <div className='countdown'>{this.state.count}</div>
         </div>
         <div className="room-success">Success! Room ID:
           <span>{this.props.match.params.id}</span>
