@@ -29,11 +29,7 @@ server.get('/', (req, res) => {
 
 server.post('/rooms', (req, res) => {
   const { player } = req.body;
-  roomId = createRoom();
-  rooms.push({
-    roomId,
-    players: [player]
-  });
+  console.log('post ', rooms);
   res.json(roomId);
 });
 
@@ -67,12 +63,28 @@ module.exports = { app }
 
 const io = socket(app);
 io.on('connection', socket => {
-  // sockets.push(socket.id)
-  socket.on('create', room => {
-    console.log('rooms ', rooms);
-    console.log('room :', room);
-    // socket.rooms[room] = room;
-    console.log(socket.rooms)
-    // console.log(Object.keys(socket.rooms));
+  let roomId = socket.id.substring(0, 6);
+  rooms.push({
+    roomId: roomId,
+    socketId: socket.id
   })
+  // console.log(rooms);
+  socket.on('create', roomId => {
+    console.log('roomId :', roomId);
+    // rooms.map(room => {
+    //   if (room.roomId === roomId) {
+    //     socket.join(roomId)
+    //     console.log(socket.adapter.rooms);
+    //   }
+  })
+  // socket.rooms[room] = room;
+  // console.log(Object.keys(socket.rooms));
+  // })
 });
+
+// function getRoomId() {
+//   return new Promise((resolve, reject) => {
+//     resolve(rooms)
+//     reject()
+//   })
+// }

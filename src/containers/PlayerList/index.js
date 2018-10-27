@@ -17,22 +17,18 @@ class PlayerList extends Component {
     }
     this.tick = this.tick.bind(this);
     this.stopTimer = this.stopTimer.bind(this);
-    this.socket = io();
   }
 
   componentDidMount() {
     let timer = setInterval(this.tick, 1000);
     this.setState({ timer });
     let roomId = this.props.match.params.id;
-    this.socket.emit('create', {
-      roomId,
-      players: this.state.players
-    })
+    io().emit('create', roomId)
     axios.get(`/rooms/${roomId}`)
       .then(response => {
         this.setState({ players: response.data })
       })
-      
+
   }
 
   componentWillUnmount() {
@@ -57,7 +53,7 @@ class PlayerList extends Component {
 
   stopTimer() {
     let timer = clearInterval(this.state.timer);
-    this.setState({timer})
+    this.setState({ timer })
   }
 
   render() {
