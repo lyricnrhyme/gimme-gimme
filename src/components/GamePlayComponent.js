@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './styles.css';
 import axios from 'axios';
+// import io from 'socket.io-client';
 import Prompt from '../containers/Prompt';
 import Counter from './CounterComponent';
 import Camera from './CameraComponent';
@@ -13,12 +14,13 @@ class GamePlay extends Component {
       roomId: null
     }
   }
+
   componentDidMount() {
+    console.log(this.props);
     let roomId = this.props.match.params.id;
     this.setState({ roomId: roomId })
     axios.get(`/api/rooms/${roomId}/images`)
       .then(response => {
-        console.log(response.data);
         this.setState({ prompt: response.data })
       })
   }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import io from 'socket.io-client';
 import './styles.css';
 
 class Camera extends Component {
@@ -8,6 +9,10 @@ class Camera extends Component {
     this.state = {
       photo: null
     }
+  }
+
+  componentDidMount() {
+    console.log(this.props);
   }
 
   handleCapture = e => {
@@ -21,6 +26,11 @@ class Camera extends Component {
       const form = new FormData();
       form.append('photo', this.state.photo);
       form.append('prompt', this.props.prompt);
+
+      io().emit('SUBMIT_PHOTO', {
+        roomId: this.props.roomId,
+      })
+
       axios.post(`/api/rooms/${this.props.roomId}/images`, form)
         .then(response => {
           console.log(response);

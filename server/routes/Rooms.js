@@ -103,19 +103,19 @@ router.get('/:id/images', (req, res) => {
   res.json(prompt);
 });
 
-router.post('/:id/images', upload.single('photo'), (req, response) => {
+router.post('/:id/images', upload.single('photo'), (req, res) => {
   const url = req.file.location;
   const { prompt } = req.body;
   let params = { url }
   // let classifiedResults;
   // let classifyPromise = new Promise((resolve, reject) => {
-  visualRecognition.classify(params, (err, res) => {
+  visualRecognition.classify(params, (err, response) => {
     if (err) reject(err);
     else {
-      let classifications = Object.values(res.images[0].classifiers[0].classes);
+      let classifications = Object.values(response.images[0].classifiers[0].classes);
       classifications.map(result => {
         if (result.class === prompt && result.score > 0.5) {
-          response.json({ success: true })
+          res.json({ success: true })
         }
       })
     }

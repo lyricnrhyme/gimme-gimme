@@ -21,6 +21,7 @@ const app = server.listen(PORT, () => {
 const io = socket(app);
 
 io.on('connection', socket => {
+  console.log('connection attempt');
   socket.on('JOIN', data => {
     socket.join(data.roomID);
     io.emit('JOINED', data.userName);
