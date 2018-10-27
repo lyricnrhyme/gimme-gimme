@@ -1,20 +1,41 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import io from 'socket.io-client';
+import logo from './logo.svg';
+import './App.css';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+import Header from './HeaderComponent';
+import EnterForm from './EnterFormComponent';
+import PlayerList from './PlayerListComponent';
+import GamePlay from './GamePlayComponent';
+import RoundEnd from './RoundEndComponent';
+import GameWinner from './GameWinnerComponent';
+
 
 class App extends Component {
 
-  componentDidMount() {
-    axios.get('http://localhost:8989/')
-      .then(result => {
-        console.log(result.data);
-        // io('http://localhost:8989/');
-      })
-  }
+  // componentDidMount() {
+  //   axios.get('http://localhost:8989/')
+  //     .then(result => {
+  //       console.log(result.data);
+  //       // io('http://localhost:8989/');
+  //     })
 
   render() {
     return (
-      null
+      <div className="App">
+        <Header />
+        <Router>
+          <Switch>
+            <Route exact={true} path='/' component={EnterForm} />
+            <Route path='/rooms/:id' component={PlayerList} />
+            <Route path='/rooms/:id/images' component={GamePlay} />
+            <Route path='/rooms/:id/scores' component={RoundEnd} />
+            <Route path='/rooms/:id/results' component={GameWinner} />
+          </Switch>
+        </Router>
+      </div>
     );
   }
 }
