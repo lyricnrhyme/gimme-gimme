@@ -14,35 +14,44 @@
 
 /*Enter Form Page*/
 .EnterForm {
+  background: whitesmoke;
   height: 87vh;
+  width: 100%;
+}
+
+.EnterForm form {
+  height: 70%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 /*End Enter Form Page*/
 
-/*Player List Page*/
-.PlayerList {
-  text-align: center;
+.EnterForm form label {
+  font-size: 18px;
+  margin: 10px;
 }
 
-.CodeCounter {
-  display: flex;
-  justify-content: space-around;
+.EnterForm form input{
+  width: 15%;
+  padding: 5px;
+  font-size: 16px;
+  margin: 10px;
 }
 
-.Player {
-  display: flex;
-  justify-content: center;
+.EnterForm form button{
+  width: 150px;
+  height: 40px;
+  font-size: 16px;
+  background: black;
+  color: white;
+  margin-bottom: 15px;
 }
-/*End Player List Page*/
 
-/*Gameplay Page*/
-.PromptCounter {
-  display: flex;
-  justify-content: space-around;
+#room-input {
+  width: 3%
 }
-/*End Gameplay Page*/
 
 h1 {
   margin: 0;
