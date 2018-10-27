@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { createRoom, generatePrompt } = require('../helpers/room');
+const { createRoom, generatePrompt } = require('../helpers');
 
 /*********************************************/
 /***       Room/Player Variables          ***/

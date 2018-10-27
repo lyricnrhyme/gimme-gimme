@@ -27,10 +27,8 @@ class GamePlay extends Component {
         <div className='PromptCounter'>
           {
             this.state.prompt
-              ?
-              <Prompt prompt={this.state.prompt} />
-              :
-              null
+              ? <Prompt prompt={this.state.prompt} />
+              : null
           }
           <Counter />
         </div>

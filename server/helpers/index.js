@@ -9,7 +9,7 @@ function createRoom() {
 }
 
 function generatePrompt() {
-  let prompts = ['red', 'blue', 'green', 'yellow', 'bottle', 'shoe', 'dog', 'cat', 'human', 'lipstick', 'phone', 'pen', 'chair', 'table']
+  let prompts = ['red', 'blue', 'green', 'yellow', 'bottle', 'shoe', 'dog', 'cat', 'face', 'lipstick', 'phone', 'pen', 'chair', 'table']
   return prompts[Math.floor(Math.random() * prompts.length)];
 }
 
