@@ -14,6 +14,7 @@ class PlayerList extends Component {
       players: null,
     }
     this.tick = this.tick.bind(this);
+    this.socket = null;
     this.socket = io();
   }
 
@@ -21,6 +22,7 @@ class PlayerList extends Component {
     let timer = setInterval(this.tick, 1000);
     this.setState({ timer });
     let roomId = this.props.match.params.id;
+    this.socket.emit('create', { roomId })
     axios.get(`/rooms/${roomId}`)
       .then(response => {
         this.setState({ players: response.data })

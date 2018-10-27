@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import io from 'socket.io-client';
 import axios from 'axios';
 import './App.css';
 
@@ -14,6 +15,7 @@ class EnterForm extends Component {
       roomId: '',
       redirect: false
     }
+    this.socket = null;
   }
 
   handleChange = event => {
@@ -28,6 +30,7 @@ class EnterForm extends Component {
     e.preventDefault();
     axios.post('/rooms', { player: this.state.createNameInput })
       .then(response => {
+        this.socket = io();
         this.setState({ roomId: response.data })
         this.setState({ redirect: true })
       })

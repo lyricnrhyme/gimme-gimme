@@ -16,6 +16,8 @@ server.use(bodyParser.urlencoded({ extended: true }))
 /***       Room/Player Variables          ***/
 /*********************************************/
 let rooms = [];
+let sockets = [];
+let roomId = null;
 /*********************************************/
 /***       Room/Player Variables          ***/
 /*********************************************/
@@ -27,7 +29,7 @@ server.get('/', (req, res) => {
 
 server.post('/rooms', (req, res) => {
   const { player } = req.body;
-  let roomId = createRoom();
+  roomId = createRoom();
   rooms.push({
     roomId,
     players: [player]
@@ -65,6 +67,11 @@ module.exports = { app }
 
 const io = socket(app);
 io.on('connection', socket => {
-  console.log(socket);
-})
-
+  // sockets.push(socket.id)
+  socket.on('create', room => {
+    console.log('rooms ', rooms);
+    socket.rooms[room] = room;
+    console.log(socket.rooms)
+    // console.log(Object.keys(socket.rooms));
+  })
+});
