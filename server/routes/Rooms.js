@@ -1,6 +1,43 @@
 const router = require('express').Router();
 const { createRoom, generatePrompt } = require('../helpers');
 
+const aws = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+const VisualRecognitionV3 = require('watson-developer-cloud/visual-recognition/v3');
+
+const BUCKET_NAME = process.env.BUCKET_NAME;
+const IAM_USER_KEY = process.env.IAM_USER_KEY;
+const IAM_USER_SECRET = process.env.IAM_USER_SECRET;
+const WATSON_KEY = process.env.IAM_WATSON_KEY;
+
+const s3 = new aws.S3({
+  accessKeyId: IAM_USER_KEY,
+  secretAccessKey: IAM_USER_SECRET
+});
+
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: BUCKET_NAME,
+    acl: 'public-read-write',
+    metadata: (req, file, cb) => {
+      cb(null, { fieldName: file.fieldname });
+    },
+    key: function (req, file, cb) {
+      cb(
+        null,
+        `${Date.now().toString()}-${file.originalname}`
+      );
+    }
+  })
+});
+
+const visualRecognition = new VisualRecognitionV3({
+  version: '2018-03-19',
+  iam_apikey: WATSON_KEY
+})
+
 /*********************************************/
 /***       Room/Player Variables          ***/
 /*********************************************/
@@ -61,10 +98,34 @@ router.route('/:id')
     })
   });
 
-router.route('/:id/images')
-  .get((req, res) => {
-    const prompt = generatePrompt();
-    res.json(prompt);
+router.get('/:id/images', (req, res) => {
+  const prompt = generatePrompt();
+  res.json(prompt);
+});
+
+router.post('/:id/images', upload.single('photo'), (req, response) => {
+  const url = req.file.location;
+  const { prompt } = req.body;
+  let params = { url }
+  // let classifiedResults;
+  // let classifyPromise = new Promise((resolve, reject) => {
+  visualRecognition.classify(params, (err, res) => {
+    if (err) reject(err);
+    else {
+      let classifications = Object.values(res.images[0].classifiers[0].classes);
+      classifications.map(result => {
+        if (result.class === prompt && result.score > 0.5) {
+          response.json({ success: true })
+        }
+      })
+    }
   })
+  // })
+  // classifyPromise
+  // .then(result => {
+  // res.json(result);
+  // })
+});
+
 
 module.exports = router;

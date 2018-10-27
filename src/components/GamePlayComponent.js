@@ -9,11 +9,13 @@ class GamePlay extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      prompt: null
+      prompt: null,
+      roomId: null
     }
   }
   componentDidMount() {
-    let roomId = this.props.match.params.id
+    let roomId = this.props.match.params.id;
+    this.setState({ roomId: roomId })
     axios.get(`/api/rooms/${roomId}/images`)
       .then(response => {
         console.log(response.data);
@@ -32,7 +34,14 @@ class GamePlay extends Component {
           }
           <Counter />
         </div>
-        <Camera />
+        {
+          this.state.roomId && this.state.prompt
+            ? <Camera
+              roomId={this.state.roomId}
+              prompt={this.state.prompt}
+            />
+            : null
+        }
       </div>
     );
   }

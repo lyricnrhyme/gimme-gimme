@@ -1,21 +1,31 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import './styles.css';
 
 class Camera extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       photo: null
     }
   }
 
   handleCapture = e => {
-    console.log(e.target);
+    const file = e.target.files[0];
+    this.setState({ photo: file })
   }
 
   submitPhoto = e => {
     e.preventDefault();
-    console.log(e);
+    if (this.state.photo) {
+      const form = new FormData();
+      form.append('photo', this.state.photo);
+      form.append('prompt', this.props.prompt);
+      axios.post(`/api/rooms/${this.props.roomId}/images`, form)
+        .then(response => {
+          console.log(response);
+        })
+    }
   }
 
   render() {
@@ -25,7 +35,7 @@ class Camera extends Component {
           <input
             type='file'
             accept='image/*'
-            capture="environment"
+            capture
             onChange={this.handleCapture}
           />
           <button onClick={this.submitPhoto}>Submit</button>
