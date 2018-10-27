@@ -22,7 +22,6 @@ class EnterForm extends Component {
     this.setState({
       [name]: value
     })
-    console.log(this.state);
   }
 
   createRoom = e => {

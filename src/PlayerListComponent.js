@@ -11,14 +11,15 @@ class PlayerList extends Component {
     this.state = {
       timer: null,
       count: 60,
-      players: null
+      players: null,
     }
     this.tick = this.tick.bind(this);
+    this.socket = io();
   }
 
   componentDidMount() {
     let timer = setInterval(this.tick, 1000);
-    this.setState({timer});
+    this.setState({ timer });
     let roomId = this.props.match.params.id;
     axios.get(`/rooms/${roomId}`)
       .then(response => {
@@ -40,9 +41,9 @@ class PlayerList extends Component {
     return (
       <div className="PlayerList">
         <div className='CodeCounter'>
-        <h1>Put Code Here</h1>
-        {/* <Counter seconds={this.state.seconds}/> */}
-        {this.state.count}
+          <h1>Put Code Here</h1>
+          {/* <Counter seconds={this.state.seconds}/> */}
+          {this.state.count}
         </div>
         <div className="room-success">Success! Room ID:
           <span>{this.props.match.params.id}</span>
