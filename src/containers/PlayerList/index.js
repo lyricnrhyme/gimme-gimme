@@ -11,24 +11,51 @@ class PlayerList extends Component {
     super(props)
     this.state = {
       timer: null,
-      count: 10,
+      count: 60,
       redirect: false,
-      players: null
+      players: []
     }
     this.tick = this.tick.bind(this);
     this.stopTimer = this.stopTimer.bind(this);
+<<<<<<< HEAD
+=======
+    
+    this.socket = io();
+    this.socket.on('JOINED', userName => {
+      console.log(`${userName} has joined!`);
+      if (this.props.location.state.userName !== userName) {
+        this.setState({
+          players: [...this.state.players, userName]
+        })
+      }
+    })
+>>>>>>> development
   }
 
   componentDidMount() {
     let timer = setInterval(this.tick, 1000);
+    let roomID = this.props.match.params.id;
+    
     this.setState({ timer });
+<<<<<<< HEAD
     let roomId = this.props.match.params.id;
     io().emit('create', roomId)
     axios.get(`/rooms/${roomId}`)
-      .then(response => {
-        this.setState({ players: response.data })
-      })
+=======
+    this.socket.emit('JOIN', {
+      roomID: this.props.match.roomID,
+      userName: this.props.location.state.userName
+    })
 
+    axios.get(`/api/rooms/${roomID}`)
+>>>>>>> development
+      .then(response => {
+        this.setState({ players: response.data.players })
+      })
+<<<<<<< HEAD
+
+=======
+>>>>>>> development
   }
 
   componentWillUnmount() {
@@ -48,7 +75,7 @@ class PlayerList extends Component {
     this.setState({
       count: this.state.count - 1
     })
-    console.log('count', this.state.timer)
+    // console.log('count', this.state.count)
   }
 
   stopTimer() {
