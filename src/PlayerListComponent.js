@@ -11,21 +11,12 @@ class PlayerList extends Component {
     super(props)
     this.state = {
       timer: null,
-<<<<<<< HEAD
       count: 10,
       redirect: false,
       players: null
     }
     this.tick = this.tick.bind(this);
     this.stopTimer = this.stopTimer.bind(this);
-=======
-      count: 60,
-      players: null,
-    }
-    this.tick = this.tick.bind(this);
-    this.socket = null;
-    this.socket = io();
->>>>>>> development
   }
 
   componentDidMount() {
@@ -77,14 +68,9 @@ class PlayerList extends Component {
     return (
       <div className="PlayerList">
         <div className='CodeCounter'>
-<<<<<<< HEAD
-        <h1>Put Code Here</h1>
-        <div className='countdown'>{this.state.count}</div>
-=======
           <h1>Put Code Here</h1>
           {/* <Counter seconds={this.state.seconds}/> */}
           {this.state.count}
->>>>>>> development
         </div>
         <div className="room-success">Success! Room ID:
           <span>{this.props.match.params.id}</span>
