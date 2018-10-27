@@ -1,5 +1,5 @@
 version: '3'
 services:
-  react-kanban:
+  web:
     build: .
-    image: supahkenneh/gimme-gimme:local
+    image: ${IMAGE_NAME}:local
