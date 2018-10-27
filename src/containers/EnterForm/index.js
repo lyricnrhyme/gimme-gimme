@@ -9,6 +9,7 @@ class EnterForm extends Component {
     super(props)
 
     this.state = {
+      roomCreated: false,
       nameInput: '',
       roomInput: '',
       roomID: '',
@@ -32,6 +33,7 @@ class EnterForm extends Component {
       .then(response => {
         this.socket = io();
         this.setState({
+          roomCreated: true,
           roomID: response.data.roomID,
           redirect: true
         })
@@ -63,6 +65,7 @@ class EnterForm extends Component {
         <Redirect to={{
           pathname: `/rooms/${this.state.roomID}`,
           state: {
+            roomCreated: this.state.roomCreated,
             userName: this.state.nameInput
           }
         }} />
