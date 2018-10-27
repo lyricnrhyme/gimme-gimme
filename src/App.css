@@ -14,14 +14,43 @@
 }
 
 .EnterForm {
-  background-color: blue;
+  background: whitesmoke;
   height: 87vh;
+  width: 100%;
+}
+
+.EnterForm form {
+  height: 70%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
+.EnterForm form label {
+  font-size: 18px;
+  margin: 10px;
+}
 
+.EnterForm form input{
+  width: 15%;
+  padding: 5px;
+  font-size: 16px;
+  margin: 10px;
+}
+
+.EnterForm form button{
+  width: 150px;
+  height: 40px;
+  font-size: 16px;
+  background: black;
+  color: white;
+  margin-bottom: 15px;
+}
+
+#room-input {
+  width: 3%
+}
 
 h1 {
   margin: 0;

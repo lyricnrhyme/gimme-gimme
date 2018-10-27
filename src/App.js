@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import io from 'socket.io-client';
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -14,13 +11,6 @@ import GameWinner from './GameWinnerComponent';
 
 
 class App extends Component {
-
-  // componentDidMount() {
-  //   axios.get('http://localhost:8989/')
-  //     .then(result => {
-  //       console.log(result.data);
-  //       // io('http://localhost:8989/');
-  //     })
 
   render() {
     return (

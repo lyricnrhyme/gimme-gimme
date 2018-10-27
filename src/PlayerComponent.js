@@ -5,7 +5,7 @@ class Player extends Component {
   render() {
     return (
       <div className="Player">
-        <h1>Put Player Code Here</h1>
+        <div>{this.props.player}</div>
       </div>
     );
   }
