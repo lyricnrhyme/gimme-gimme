@@ -22,7 +22,10 @@ class PlayerList extends Component {
     let timer = setInterval(this.tick, 1000);
     this.setState({ timer });
     let roomId = this.props.match.params.id;
-    this.socket.emit('create', { roomId })
+    this.socket.emit('create', {
+      roomId,
+      players: this.state.players
+    })
     axios.get(`/rooms/${roomId}`)
       .then(response => {
         this.setState({ players: response.data })

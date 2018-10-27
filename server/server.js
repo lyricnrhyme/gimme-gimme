@@ -70,7 +70,8 @@ io.on('connection', socket => {
   // sockets.push(socket.id)
   socket.on('create', room => {
     console.log('rooms ', rooms);
-    socket.rooms[room] = room;
+    console.log('room :', room);
+    // socket.rooms[room] = room;
     console.log(socket.rooms)
     // console.log(Object.keys(socket.rooms));
   })
