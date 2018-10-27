@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { createRoom } = require('../helpers/room');
+const { createRoom, generatePrompt } = require('../helpers/room');
 
 /*********************************************/
 /***       Room/Player Variables          ***/
@@ -20,9 +20,9 @@ router.route('/')
     roomID = createRoom();
     rooms.push({
       roomID,
-      players: [ playerName ]
+      players: [playerName]
     })
-    
+
     return res.json({
       roomID: roomID
     });
@@ -31,7 +31,7 @@ router.route('/')
 router.route('/:id')
   .get((req, res) => {
     console.log('get id', rooms);
-    
+
 
     rooms.map(room => {
       if (room.roomID === req.params.id) {
@@ -60,5 +60,11 @@ router.route('/:id')
       }
     })
   });
+
+router.route('/:id/images')
+  .get((req, res) => {
+    const prompt = generatePrompt();
+    res.json(prompt);
+  })
 
 module.exports = router;

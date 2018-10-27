@@ -1,23 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './styles.css';
 
-class Prompt extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      timer: null,
-      count: 10,
-      redirect: false,
-      players: null
-    }
-  }
-  render() {
-    return (
-      <div className="Prompt">
-        <h1>Prompt Here</h1>
+function Prompt(props) {
+  console.log(props);
+  return (
+    <div className="Prompt">
+      <div className="prompt-container">
+        <div>
+          Gimme gimme something...
+          <span>{props.prompt}</span>
+        </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Prompt;

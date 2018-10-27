@@ -25,14 +25,4 @@ io.on('connection', socket => {
     socket.join(data.roomID);
     io.emit('JOINED', data.userName);
   })
-  // socket.rooms[room] = room;
-  // console.log(Object.keys(socket.rooms));
-  // })
 });
-
-// function getRoomId() {
-//   return new Promise((resolve, reject) => {
-//     resolve(rooms)
-//     reject()
-//   })
-// }
