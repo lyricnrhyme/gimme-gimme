@@ -5,11 +5,12 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 // containers
 import EnterForm from '../EnterForm';
 import PlayerList from '../PlayerList';
+import GamePlay from '../GamePlay';
 import RoundEnd from '../RoundEnd';
+
 
 // components
 import Header from '../../components/HeaderComponent';
-import GamePlay from '../../components/GamePlayComponent';
 import GameWinner from '../../components/GameWinnerComponent';
 
 class App extends Component {

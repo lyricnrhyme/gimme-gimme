@@ -3,7 +3,6 @@ import './styles.css';
 import axios from 'axios';
 import io from 'socket.io-client';
 import Player from '../../components/PlayerComponent';
-import Counter from '../../components/CounterComponent';
 import { Redirect } from 'react-router-dom';
 
 class PlayerList extends Component {
@@ -11,7 +10,7 @@ class PlayerList extends Component {
     super(props)
     this.state = {
       timer: null,
-      count: 10,
+      count: 60,
       redirect: false,
       players: null
     }
@@ -52,7 +51,6 @@ class PlayerList extends Component {
     this.setState({
       count: this.state.count - 1
     })
-    console.log('count', this.state.timer)
   }
 
   stopTimer() {

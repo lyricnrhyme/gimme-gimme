@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import './styles.css';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 
-import RoundWinner from '../../components/RoundWinnerComponent';
-import RoundCounter from '../../components/RoundCounterComponent';
-import ScoreBoard from '../../components/ScoreBoardComponent';
+import Prompt from '../Prompt';
+import Camera from '../../components/CameraComponent';
 
-class RoundEnd extends Component {
+class GamePlay extends Component {
   constructor(props) {
     super(props)
     this.state = {
       timer: null,
-      count: 15,
+      count: 60,
       redirect: false
     }
     this.tick = this.tick.bind(this);
@@ -48,21 +46,22 @@ class RoundEnd extends Component {
     this.setState({timer})
   }
 
-
   render() {
     if (this.state.redirect) {
       return (
-        <Redirect to={`/rooms/${this.props.match.params.id}/images`} />
+        <Redirect to={`/rooms/${this.props.match.params.id}/scores`}/>
       )
     }
     return (
-      <div className="RoundEnd">
-        <RoundWinner/>
-        {this.state.count}
-        <ScoreBoard/>
+      <div className="GamePlay">
+        <div className='PromptCounter'>
+          <Prompt/>
+          {this.state.count}
+        </div>
+        <Camera/>
       </div>
     );
   }
 }
 
-export default RoundEnd;
+export default GamePlay;
