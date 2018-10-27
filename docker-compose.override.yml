@@ -1,7 +1,7 @@
 version: '3'
 services:
   react-kanban:
-    image: lyricnrhyme/gimme-gimme:${IMAGE_VERSION}-local
+    image: supahkenneh/gimme-gimme:${IMAGE_VERSION}-local
     depends_on:
       - db
       - redis
