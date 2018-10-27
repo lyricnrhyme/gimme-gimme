@@ -1,0 +1,6 @@
+version: '3'
+services:
+  react-kanban:
+    image: lyricnrhyme/gimme-gimme:${IMAGE_VERSION}
+    environment:
+      NODE_ENV: production
