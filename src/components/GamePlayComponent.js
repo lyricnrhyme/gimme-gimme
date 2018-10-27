@@ -16,7 +16,6 @@ class GamePlay extends Component {
     let roomId = this.props.match.params.id
     axios.get(`/api/rooms/${roomId}/images`)
       .then(response => {
-        console.log(response.data);
         this.setState({ prompt: response.data })
       })
   }

@@ -30,16 +30,11 @@ router.route('/')
 
 router.route('/:id')
   .get((req, res) => {
-    console.log('get id', rooms);
-
-
     rooms.map(room => {
-      if (room.roomID === req.params.id) {
+      if (room.roomID === req.params.id) {        
         return res.json({
           players: room.players
         });
-      } else {
-        return res.json([]);
       }
     })
   })

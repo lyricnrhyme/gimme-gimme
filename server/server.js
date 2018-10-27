@@ -20,9 +20,9 @@ const app = server.listen(PORT, () => {
 
 const io = socket(app);
 
-io.on('connection', socket => {
+io.on('connection', socket => {  
   socket.on('JOIN', data => {
     socket.join(data.roomID);
-    io.emit('JOINED', data.userName);
+    io.to(data.roomID).emit('JOINED', data.userName);
   })
 });

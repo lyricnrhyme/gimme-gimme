@@ -34,7 +34,7 @@ class PlayerList extends Component {
 
     this.setState({ timer });
     this.socket.emit('JOIN', {
-      roomID: this.props.match.roomID,
+      roomID: roomID,
       userName: this.props.location.state.userName
     })
 

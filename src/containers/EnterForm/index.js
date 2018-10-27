@@ -43,9 +43,7 @@ class EnterForm extends Component {
   }
 
   joinRoom = e => {
-    e.preventDefault();
-    console.log('roominput', this.state.roomInput);
-    
+    e.preventDefault();    
     axios.post(`/api/rooms/${this.state.roomInput}`, { playerName: this.state.nameInput })
       .then(response => {
         this.setState({
