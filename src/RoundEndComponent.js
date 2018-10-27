@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import RoundWinner from './RoundWinnerComponent';
+import RoundCounter from './RoundCounterComponent';
+import ScoreBoard from './ScoreBoardComponent';
+
 class RoundEnd extends Component {
   render() {
     return (
       <div className="RoundEnd">
-        <h1>Gimme Gimme</h1>
+        <RoundWinner/>
+        <RoundCounter/>
+        <ScoreBoard/>
       </div>
     );
   }

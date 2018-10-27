@@ -3,6 +3,7 @@ import './App.css';
 import axios from 'axios';
 import io from 'socket.io-client';
 import Player from './PlayerComponent';
+import Counter from './CounterComponent';
 
 class PlayerList extends Component {
   constructor() {

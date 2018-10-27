@@ -5,7 +5,8 @@ class GameWinner extends Component {
   render() {
     return (
       <div className="GameWinner">
-        <h1>Gimme Gimme</h1>
+        <h1>Dis Player Won</h1>
+        <button>Replay</button>
       </div>
     );
   }

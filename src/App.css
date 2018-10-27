@@ -6,13 +6,13 @@
   background-color: rgb(35, 150, 35);
   color: white;
   height: 13vh;
-  /* margin: auto; */
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/*Enter Form Page*/
 .EnterForm {
   background: whitesmoke;
   height: 87vh;
@@ -26,6 +26,7 @@
   align-items: center;
   justify-content: center;
 }
+/*End Enter Form Page*/
 
 .EnterForm form label {
   font-size: 18px;
