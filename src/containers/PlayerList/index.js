@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
+import './styles.css';
 import axios from 'axios';
 import io from 'socket.io-client';
-import Player from './PlayerComponent';
-import Counter from './CounterComponent';
+import Player from '../../components/PlayerComponent';
+import Counter from '../../components/CounterComponent';
 import { Redirect } from 'react-router-dom';
 
 class PlayerList extends Component {

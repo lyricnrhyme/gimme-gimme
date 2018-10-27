@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './styles.css';
 
 class Prompt extends Component {
   constructor(props) {

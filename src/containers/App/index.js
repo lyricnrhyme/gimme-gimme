@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import './App.css';
+import './styles.css';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import Header from './HeaderComponent';
-import EnterForm from './EnterFormComponent';
-import PlayerList from './PlayerListComponent';
-import GamePlay from './GamePlayComponent';
-import RoundEnd from './RoundEndComponent';
-import GameWinner from './GameWinnerComponent';
+// containers
+import EnterForm from '../EnterForm';
+import PlayerList from '../PlayerList';
+import RoundEnd from '../RoundEnd';
 
+// components
+import Header from '../../components/HeaderComponent';
+import GamePlay from '../../components/GamePlayComponent';
+import GameWinner from '../../components/GameWinnerComponent';
 
 class App extends Component {
 

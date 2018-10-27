@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
-import Prompt from './PromptComponent';
+import './styles.css';
+
+import Prompt from '../containers/Prompt';
 import Counter from './CounterComponent';
 import Camera from './CameraComponent';
 

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import './App.css';
+import './styles.css';
 import axios from 'axios';
 
-import RoundWinner from './RoundWinnerComponent';
-import RoundCounter from './RoundCounterComponent';
-import ScoreBoard from './ScoreBoardComponent';
+import RoundWinner from '../../components/RoundWinnerComponent';
+import RoundCounter from '../../components/RoundCounterComponent';
+import ScoreBoard from '../../components/ScoreBoardComponent';
 
 class RoundEnd extends Component {
   constructor(props) {

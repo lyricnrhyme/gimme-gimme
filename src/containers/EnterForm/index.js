@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import io from 'socket.io-client';
 import axios from 'axios';
-import './App.css';
+import './styles.css';
 
 class EnterForm extends Component {
   constructor(props) {
