@@ -21,9 +21,11 @@ class PlayerList extends Component {
     this.socket = io();
     this.socket.on('JOINED', userName => {
       console.log(`${userName} has joined!`);
-      this.setState({
-        players: [...this.state.players, userName]
-      })
+      if (this.props.location.state.userName !== userName) {
+        this.setState({
+          players: [...this.state.players, userName]
+        })
+      }
     })
   }
 
@@ -39,7 +41,7 @@ class PlayerList extends Component {
 
     axios.get(`/api/rooms/${roomID}`)
       .then(response => {
-        this.setState({ players: response.data })
+        this.setState({ players: response.data.players })
       })
   }
 

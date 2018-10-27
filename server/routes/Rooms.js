@@ -35,8 +35,9 @@ router.route('/:id')
 
     rooms.map(room => {
       if (room.roomID === req.params.id) {
-        console.log(room.players);
-        return res.json(room.players);
+        return res.json({
+          players: room.players
+        });
       } else {
         return res.json([]);
       }
@@ -45,7 +46,6 @@ router.route('/:id')
   .post((req, res) => {
     const id = req.params.id;
     const { playerName } = req.body;
-    let players;
 
     rooms.map(room => {
       if (room.roomID === id) {
