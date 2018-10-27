@@ -17,6 +17,7 @@ class PlayerList extends Component {
     }
     this.tick = this.tick.bind(this);
     this.stopTimer = this.stopTimer.bind(this);
+    this.socket = io();
   }
 
   componentDidMount() {
