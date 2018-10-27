@@ -29,10 +29,10 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact={true} path='/' component={EnterForm} />
-            <Route path='/rooms/:id' component={PlayerList} />
             <Route path='/rooms/:id/images' component={GamePlay} />
             <Route path='/rooms/:id/scores' component={RoundEnd} />
             <Route path='/rooms/:id/results' component={GameWinner} />
+            <Route path='/rooms/:id' component={PlayerList} />
           </Switch>
         </Router>
       </div>

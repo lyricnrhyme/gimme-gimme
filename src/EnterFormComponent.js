@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import './App.css';
 
 class EnterForm extends Component {
+    createRoom = () => {
+
+    }
+
+    joinRoom = () => {
+
+    }
+
   render() {
     return (
       <div className="EnterForm">
@@ -18,8 +26,8 @@ class EnterForm extends Component {
                 <input name='username' type='text'/>
             </label>
             <div className='CreateJoin'>
-                <button>Create</button>
-                <button>Join</button>
+                <button onClick={this.createRoom}>Create</button>
+                <button onClick={this.joinRoom}>Join</button>
             </div>
         </form>
       </div>

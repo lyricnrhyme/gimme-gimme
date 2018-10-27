@@ -6,22 +6,43 @@
   background-color: rgb(35, 150, 35);
   color: white;
   height: 13vh;
-  /* margin: auto; */
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/*Enter Form Page*/
 .EnterForm {
-  background-color: blue;
   height: 87vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+/*End Enter Form Page*/
 
+/*Player List Page*/
+.PlayerList {
+  text-align: center;
+}
 
+.CodeCounter {
+  display: flex;
+  justify-content: space-around;
+}
+
+.Player {
+  display: flex;
+  justify-content: center;
+}
+/*End Player List Page*/
+
+/*Gameplay Page*/
+.PromptCounter {
+  display: flex;
+  justify-content: space-around;
+}
+/*End Gameplay Page*/
 
 h1 {
   margin: 0;
