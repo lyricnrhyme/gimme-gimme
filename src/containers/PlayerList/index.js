@@ -33,10 +33,18 @@ class PlayerList extends Component {
     let roomID = this.props.match.params.id;
 
     this.setState({ timer });
-    this.socket.emit('JOIN', {
-      roomID: this.props.match.roomID,
-      userName: this.props.location.state.userName
-    })
+
+    if (this.props.location.state.roomCreated) {
+      this.socket.emit('CREATE', {
+        roomID: roomID,
+        userName: this.props.location.state.userName
+      }) 
+    } else {
+      this.socket.emit('JOIN', {
+        roomID: roomID,
+        userName: this.props.location.state.userName
+      })
+    }
 
     axios.get(`/api/rooms/${roomID}`)
       .then(response => {
