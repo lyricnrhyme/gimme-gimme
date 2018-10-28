@@ -78,5 +78,8 @@
   .EnterForm form {
     margin-top: -5%;
   }
+  .joinForm {
+    margin-top: -20%;
+  }
 }
 

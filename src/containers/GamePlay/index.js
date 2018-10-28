@@ -75,7 +75,7 @@ class GamePlay extends Component {
               : null
           }
         </div>
-        <div>
+        <div className="countdown">
           {this.state.countdown}
         </div>
         {
