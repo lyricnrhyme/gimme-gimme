@@ -81,6 +81,12 @@ class PlayerList extends Component {
           }
         }} />
       )
+    } else if (this.state.redirect) {
+      return (
+        <Redirect to={{
+          pathname: '/solo',
+        }}/>
+      )
     }
     return (
       <div className="PlayerList">

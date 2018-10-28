@@ -12,6 +12,7 @@ import RoundEnd from '../RoundEnd';
 import Header from '../../components/HeaderComponent';
 import GameWinner from '../GameWinner';
 import SoloMode from '../../components/SoloModeComponent';
+
 class App extends Component {
   render() {
     return (

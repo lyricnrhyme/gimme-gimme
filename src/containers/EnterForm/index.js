@@ -70,7 +70,7 @@ class EnterForm extends Component {
           }
         }} />
       )
-    }
+    } else {
     return (
       <div className="EnterForm">
         <form onSubmit ={ this.createRoom  }>
@@ -103,6 +103,7 @@ class EnterForm extends Component {
         </form>
       </div>
     );
+    }
   }
 }
 

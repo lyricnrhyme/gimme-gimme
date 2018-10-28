@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './styles.css';
+import { Redirect } from 'react-router-dom';
 
 class SoloMode extends Component {
   constructor(props) {
     super(props)
     this.state={
       timer: null,
-      count: 10,
-      redirect: false
+      count: 12,
     }
   }
 
@@ -18,29 +18,37 @@ class SoloMode extends Component {
 
   tick = () => {
     if (this.state.count === 0) {
-      this.setState({redirect: true})
       clearInterval(this.state.timer);
     } else {
       this.setState({count: this.state.count - 1})
+      console.log('tick');
     }
   }
 
   render() {
-    if (this.state.redirect) {
-
-    } else {
+    if (this.state.count === 0) {
+      return (
+        <div>
+          <br/><br/>
+          <div>
+          <iframe width='100%' height='300' src="https://www.youtube.com/embed/5dbG4wqN0rQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen className='Doge'/>
+          </div>
+        </div>
+      )
+    }
       return (
         <div className="SoloMode">
         <br/><br/>
           <div className='Sorry'>
             <p>
-              We've noticed you've decided to go solo on your playthrough. Unfortunately we need one more player for this to actually work. While you make more friends, please enjoy this playlist of dog videos we've made for you.
+              We've noticed you've decided to go solo on your playthrough. Unfortunately we need one more player for this to actually work. While you make more friends, please enjoy this dog video.
+              <br/>
+              {this.state.count}
             </p>
           </div>
         </div>
       );
     }
   }
-}
 
 export default SoloMode;
