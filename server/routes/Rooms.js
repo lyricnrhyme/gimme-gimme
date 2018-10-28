@@ -60,7 +60,8 @@ router.route('/')
       players: [{
         name: playerName,
         score: 0
-      }]
+      }],
+      round: 1
     })
 
     return res.json({
@@ -137,8 +138,15 @@ router.get('/:id/scores', (req, res) => {
   const roomID = req.params.id;
   rooms.map(room => {
     if (room.roomID === roomID) {
-      console.log(room.players)
-      res.json(room.players);
+      room.round += 1;
+      if (room.round < 5) {
+        res.json(room.players);
+      } else {
+        res.json({
+          redirect: true,
+          players: room.players
+        })
+      }
     }
   })
 })
