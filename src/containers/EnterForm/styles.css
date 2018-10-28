@@ -9,6 +9,9 @@
   /* animation-iteration-count: 1; */
   animation-delay: 1s;
   font-family: 'Varela Round', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .EnterForm form {

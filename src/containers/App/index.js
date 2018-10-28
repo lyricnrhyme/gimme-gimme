@@ -12,6 +12,7 @@ import GamePlay from '../GamePlay';
 import Header from '../../components/HeaderComponent';
 import GameWinner from '../GameWinner';
 import SoloMode from '../../components/SoloModeComponent';
+import HowToPlay from '../../components/HowToPlayComponent';
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
           <Switch>
             <Route exact={true} path='/' component={EnterForm} />
             <Route path='/solo' component={SoloMode} />
+            <Route path='/howtoplay' component={HowToPlay} />
             <Route exact={true} path='/rooms' component={EnterForm} />
             <Route path='/rooms/:id/images' component={GamePlay} />
             {/* <Route path='/rooms/:id/scores' component={RoundEnd} /> */}
