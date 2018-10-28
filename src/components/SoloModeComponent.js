@@ -20,7 +20,6 @@ class SoloMode extends Component {
       clearInterval(this.state.timer);
     } else {
       this.setState({count: this.state.count - 1})
-      console.log('tick');
     }
   }
 

@@ -84,20 +84,25 @@ router.route('/:id')
   .post((req, res) => {
     const roomID = req.params.id;
     const { playerName } = req.body;
-
+    if (!rooms.length) {
+      return res.json({ message: `Room doesn't exist!` })
+    }
     rooms.map(room => {
       if (room.roomID === roomID) {
-        room.players.push({
-          name: playerName,
-          score: 0
-        });
-
-        return res.json({
-          roomID: room.roomID
-        })
+        let nameCheck = room.players.some(player => player.name === playerName)
+        if (nameCheck) {
+          room.players.push({
+            name: playerName,
+            score: 0
+          });
+          return res.json({
+            roomID: room.roomID
+          })
+        } else {
+          return res.json({ message: `Player name taken in this room!` })
+        }
       } else {
-        /* HOW TO HANDLE ROOM THAT DOESN'T EXIST??? */
-        return false;
+        return res.json({ message: `Room doesn't exist!` })
       }
     })
   });
@@ -137,24 +142,24 @@ router.post('/:id/images', upload.single('photo'), (req, res) => {
   })
 });
 
-// router.get('/:id/scores', (req, res) => {
-//   const roomID = req.params.id;
-//   rooms.map(room => {
-//     if (room.roomID === roomID) {
-//       if (room.round < 2) {
-//         room.round += 1;
-//       }
-//       res.json({
-//         winningPhoto: room.winningPhoto,
-//         players: room.players,
-//         redirect: true,
-//         round: room.round
-//       });
-//     } else {
-//       res.json({ redirect: null })
-//     }
-//   })
-// })
+router.get('/:id/scores', (req, res) => {
+  const roomID = req.params.id;
+  rooms.map(room => {
+    if (room.roomID === roomID) {
+      if (room.round < 2) {
+        room.round += 1;
+      }
+      res.json({
+        winningPhoto: room.winningPhoto,
+        players: room.players,
+        redirect: true,
+        round: room.round
+      });
+    } else {
+      res.json({ redirect: null })
+    }
+  })
+})
 
 router.get('/:id/results', (req, res) => {
   const roomID = req.params.id;

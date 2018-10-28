@@ -58,7 +58,7 @@ class GamePlay extends Component {
     if (this.state.redirect) {
       return (
         <Redirect to={{
-          pathname: `/rooms/${this.state.roomID}/results`,
+          pathname: `/rooms/${this.state.roomID}/scores`,
           state: {
             userName: this.props.location.state.userName,
             winner: this.state.winner || null

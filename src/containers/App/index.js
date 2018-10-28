@@ -6,25 +6,27 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import EnterForm from '../EnterForm';
 import PlayerList from '../PlayerList';
 import GamePlay from '../GamePlay';
-// import RoundEnd from '../RoundEnd';
+import GameWinner from '../GameWinner';
+import RoundEnd from '../RoundEnd';
 
 // components
 import Header from '../../components/HeaderComponent';
-import GameWinner from '../GameWinner';
 import SoloMode from '../../components/SoloModeComponent';
+import Overlay from '../../components/OverlayComponent';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
+        <Overlay />
         <Header />
         <Router>
           <Switch>
             <Route exact={true} path='/' component={EnterForm} />
-            <Route path='/solo' component={SoloMode} />
             <Route exact={true} path='/rooms' component={EnterForm} />
+            <Route path='/rooms/:id/solo' component={SoloMode} />
             <Route path='/rooms/:id/images' component={GamePlay} />
-            {/* <Route path='/rooms/:id/scores' component={RoundEnd} /> */}
+            <Route path='/rooms/:id/scores' component={RoundEnd} />
             <Route path='/rooms/:id/results' component={GameWinner} />
             <Route path='/rooms/:id' component={PlayerList} />
           </Switch>

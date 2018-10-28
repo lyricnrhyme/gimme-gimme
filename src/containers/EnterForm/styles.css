@@ -64,6 +64,10 @@
   height : 33px;
 }
 
+.error-message {
+  color: red;
+}
+
 @keyframes fadein {  
   from {opacity: 0}
   to {opacity: 1}

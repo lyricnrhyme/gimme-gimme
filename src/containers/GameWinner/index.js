@@ -13,7 +13,6 @@ class GameWinner extends Component {
       redirect: false,
       players: null,
     }
-
     this.socket = null;
   }
 
@@ -39,16 +38,10 @@ class GameWinner extends Component {
 
   replay = e => {
     e.preventDefault();
-    // this.setState({ redirect: true })
     window.location.replace(`${window.location.origin}`)
   }
 
   render() {
-    // if (this.state.redirect) {
-    //   return (
-    //     <Redirect to="/" />
-    //   )
-    // }
     if (this.props.location.state.winner) {
       return (
         <div className="GameWinner">
