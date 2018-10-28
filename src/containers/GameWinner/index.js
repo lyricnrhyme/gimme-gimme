@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import io from 'socket.io-client';
 import './styles.css';
