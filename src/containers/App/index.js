@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './styles.css';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // containers
 import EnterForm from '../EnterForm';

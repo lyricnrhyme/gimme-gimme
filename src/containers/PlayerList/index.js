@@ -10,7 +10,7 @@ class PlayerList extends Component {
     super(props)
     this.state = {
       timer: null,
-      count: null,
+      count: 10,
       redirect: false,
       players: []
     }
@@ -37,7 +37,7 @@ class PlayerList extends Component {
       this.socket.emit('CREATE', {
         roomID: roomID,
         userName: this.props.location.state.userName
-      }) 
+      })
     } else {
       this.socket.emit('JOIN', {
         roomID: roomID,
@@ -78,7 +78,12 @@ class PlayerList extends Component {
   render() {
     if (this.state.redirect) {
       return (
-        <Redirect to={`/rooms/${this.props.match.params.id}/images`} />
+        <Redirect to={{
+          pathname: `/rooms/${this.props.match.params.id}/images`,
+          state: {
+            userName: this.props.location.state.userName
+          }
+        }} />
       )
     }
     return (

@@ -16,7 +16,10 @@ class RoundEnd extends Component {
       redirect: false
     }
     this.tick = this.tick.bind(this);
+<<<<<<< HEAD
     this.stopTimer = this.stopTimer.bind(this);
+=======
+>>>>>>> development
   }
 
   componentDidMount() {
