@@ -68,7 +68,7 @@ class GamePlay extends Component {
     }
     return (
       <div className="GamePlay">
-        <div className='Prompt'>
+        <div className="Prompt">
           {
             this.state.prompt
               ? <Prompt prompt={this.state.prompt} />
