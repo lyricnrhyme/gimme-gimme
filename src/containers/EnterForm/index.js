@@ -74,7 +74,6 @@ class EnterForm extends Component {
         }} />
       )
     } else {
-<<<<<<< HEAD
       return (
         <div className="EnterForm">
           <form onSubmit={this.createRoom}>
@@ -110,42 +109,6 @@ class EnterForm extends Component {
           </form>
         </div>
       );
-=======
-    return (
-      <div className="EnterForm">
-        <form onSubmit={this.createRoom}>
-          <label>To Create Room, Enter Name:</label>
-          <input
-            type="text"
-            name="nameInput"
-            onChange={this.handleChange}
-          />
-          <input type="submit" value="Create" />
-        </form>
-        <form onSubmit={this.joinRoom} className="joinForm">
-          <div>or</div>
-          <div>Join Existing Room</div>
-          <label>Name:</label>
-          <input
-            type="text"
-            name="nameInput"
-            onChange={this.handleChange}
-          />
-          <label>Room:</label>
-          <input
-            type="text"
-            id="room-input"
-            name="roomInput"
-            onChange={this.handleChange}
-            maxLength="6"
-            autoCapitalize="none"
-            autoCorrect="none"
-          />
-          <input type="submit" value="Join" />
-        </form>
-      </div>
-    );
->>>>>>> development
     }
   }
 }
