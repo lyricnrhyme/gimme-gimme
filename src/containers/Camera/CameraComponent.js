@@ -7,17 +7,15 @@ class Camera extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      photo: null
+      photo: null,
+      badImage: false,
+      isDisabled: false
     }
-  }
-
-  componentDidMount() {
-    console.log(this.props);
   }
 
   handleCapture = e => {
     const file = e.target.files[0];
-    this.setState({ photo: file })
+    this.setState({ photo: file , isDisabled: false, badImage:false})
   }
 
   submitPhoto = e => {
@@ -35,25 +33,31 @@ class Camera extends Component {
               roomID: this.props.roomId,
               userName: this.props.user
             })
+          } else {
+            this.setState({ badImage: true, isDisabled: true });
           }
         })
-      // .then(() => {
-      //   this.props.roundWin()
-      // })
     }
   }
 
   render() {
+    console.log('isDisabled', this.state.isDisabled);
     return (
       <div className="Camera">
+        {
+          this.state.badImage
+            ? <span>Not what I wanted! Show me something else!</span>
+            : null
+        }
         <form>
-          <input
+          <input className="uploadFile"
             type='file'
             accept='image/*'
             capture
             onChange={this.handleCapture}
           />
-          <button onClick={this.submitPhoto}>Submit</button>
+          <br/>
+          <button type="submit" onClick={this.submitPhoto} disabled={this.state.isDisabled} >Submit</button>
         </form>
       </div>
     );

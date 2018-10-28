@@ -1,68 +1,100 @@
-import React, { Component } from 'react';
-import './styles.css';
-import axios from 'axios';
+// import React, { Component } from 'react';
+// import './styles.css';
+// import axios from 'axios';
+// import io from 'socket.io-client';
+// import { Redirect } from 'react-router-dom';
+// import RoundWinner from '../../components/RoundWinnerComponent';
+// import ScoreBoard from '../../components/ScoreBoardComponent';
 
-import RoundWinner from '../../components/RoundWinnerComponent';
-import RoundCounter from '../../components/RoundCounterComponent';
-import ScoreBoard from '../../components/ScoreBoardComponent';
+// class RoundEnd extends Component {
+//   constructor(props) {
+//     super(props)
+//     this.state = {
+//       finalRedirect: false,
+//       countdown: null,
+//       roomID: null,
+//       players: [],
+//       photo: null,
+//       redirect: false
+//     }
+//     this.socket = io();
+//     this.socket.on('ROUND_END', countdown => {
+//       if (countdown === 0) {
+//         this.setState({
+//           redirect: true
+//         })
+//       } else {
+//         this.setState({
+//           countdown: countdown
+//         })
+//       }
+//     })
+//   }
 
-class RoundEnd extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      timer: null,
-      count: 10,
-      redirect: false,
-      players: []
-    }
-    // this.tick = this.tick.bind(this);
-  }
+//   componentDidMount() {
+//     const roomID = this.props.match.params.id;
+//     this.setState({ roomID: roomID })
+//     this.socket.emit('WIN_ROUND', {
+//       roomID: roomID
+//     })
+//     axios.get(`/api/rooms/${roomID}/scores`)
+//       .then(response => {
+//         if (!response.data.round) {
+//           return this.setState({ finalRedirect: true })
+//         } else {
+//           this.setState({ players: response.data.players })
+//           this.setState({ photo: response.data.winningPhoto })
+//           io().emit('END_ROUND', { roomID: roomID });
+//         }
+//       })
+//     console.log('???', this.state.countdown)
+//   }
 
-  componentDidMount() {
-    const roomID = this.props.match.params.id;
-    // let timer;
-    // if (this.state.count !== 0) {
-    //   let timer = setTimeout(this.tick, 1000);
-    //   this.setState({timer});
-    // } else {
-    //   timer = clearInterval(this.tick);
-    //   this.setState({timer});
-    // }
-    axios.get(`/api/rooms/${roomID}/scores`)
-      .then(response => {
-        this.setState({ players: response.data })
-      })
-  }
+//   tick() {
+//     if (this.state.countdown === 0) {
+//       this.setState({
+//         redirect: true
+//       })
+//     }
+//   }
 
-  // componentWillUnmount() {
-  //   clearInterval(this.state.timer);
-  // }
-
-  // stopTimer() {
-  //   let timer = clearInterval(this.state.timer);
-  //   this.setState({timer})
-  // }
-
-  // tick() {
-  //   this.setState({
-  //     count: this.state.count - 1
-  //   })
-  // }
-
-
-  render() {
-    return (
-      <div className="RoundEnd">
-        <RoundWinner userName={this.props.location.state.winner} />
-        {this.state.count}
-        {
-          this.state.players
-            ? <ScoreBoard players={this.state.players} />
-            : null
-        }
-      </div>
-    );
-  }
-}
-
-export default RoundEnd;
+//   render() {
+//     if (this.state.redirect && this.props.location.state) {
+//       return (
+//         <Redirect to={{
+//           pathname: `/rooms/${this.state.roomID}/images`,
+//           state: {
+//             userName: this.props.location.state.userName
+//           }
+//         }} />
+//       )
+//     }
+//     if (this.state.finalRedirect) {
+//       return (
+//         <Redirect to={{
+//           pathname: `/rooms/${this.state.roomID}/results`,
+//           state: {
+//             userName: this.props.location.state.userName
+//           }
+//         }} />
+//       )
+//     }
+//     return (
+//       <div className="RoundEnd">
+//         <RoundWinner
+//           userName={this.props.location.state.winner}
+//           photo={this.state.photo}
+//         />
+//         <div className='CodeCounter'>
+//           {this.state.countdown}
+//         </div>
+//         {
+//           this.state.players
+//             ? <ScoreBoard players={this.state.players} />
+//             : null
+//         }
+//       </div >
+//     );
+//   }
+// }
+// export default RoundEnd;

@@ -28,7 +28,6 @@ class EnterForm extends Component {
 
   createRoom = e => {
     e.preventDefault();
-    
     axios.post('/api/rooms', { playerName: this.state.nameInput })
       .then(response => {
         this.socket = io();
@@ -40,12 +39,12 @@ class EnterForm extends Component {
       })
       .catch(err => {
         console.log(err);
-        
+
       })
   }
 
   joinRoom = e => {
-    e.preventDefault();    
+    e.preventDefault();
     axios.post(`/api/rooms/${this.state.roomInput}`, { playerName: this.state.nameInput })
       .then(response => {
         this.setState({
@@ -55,8 +54,8 @@ class EnterForm extends Component {
       })
       .catch(err => {
         console.log(err);
-      
-    })
+
+      })
   }
 
   render() {
@@ -70,10 +69,10 @@ class EnterForm extends Component {
           }
         }} />
       )
-    }
+    } else {
     return (
       <div className="EnterForm">
-        <form onSubmit ={ this.createRoom  }>
+        <form onSubmit={this.createRoom}>
           <label>To Create Room, Enter Name:</label>
           <input
             type="text"
@@ -82,7 +81,7 @@ class EnterForm extends Component {
           />
           <input type="submit" value="Create" />
         </form>
-        <form onSubmit={ this.joinRoom }>
+        <form onSubmit={this.joinRoom} id="joinForm">
           <div>or</div>
           <div>Join Existing Room</div>
           <label>Name:</label>
@@ -98,11 +97,14 @@ class EnterForm extends Component {
             name="roomInput"
             onChange={this.handleChange}
             maxLength="6"
+            autoCapitalize="none"
+            autoCorrect="none"
           />
           <input type="submit" value="Join" />
         </form>
       </div>
     );
+    }
   }
 }
 

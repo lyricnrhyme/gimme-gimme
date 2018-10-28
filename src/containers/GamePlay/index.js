@@ -1,70 +1,82 @@
 import React, { Component } from 'react';
 import './styles.css';
-import axios from 'axios';
 import io from 'socket.io-client';
 import { Redirect } from 'react-router-dom';
-import Prompt from '../containers/Prompt';
-import Counter from './CounterComponent';
-import Camera from './CameraComponent';
+import Prompt from '../../components/Prompt';
+import Camera from '../Camera/CameraComponent';
 
 class GamePlay extends Component {
   constructor(props) {
     super(props)
     this.state = {
       prompt: null,
+      countdown: null,
       roomID: null,
       redirect: false,
       winner: null
     }
     this.socket = io();
+
     this.socket.on('WINNER', username => {
       console.log(`${username} won this round!`)
-      this.setState({ winner: username })
-      this.socket.emit('REDIRECT')
+      this.setState({
+        winner: username,
+        redirect: true
+      })
     })
-    this.socket.on('MOVE_TO_NEXT_ROUND', data => {
-      this.setState({ redirect: data.redirect })
+
+    this.socket.on('TICK', countdown => {
+      if (countdown === 0) {
+        this.setState({
+          redirect: true
+        })
+      } else {
+        this.setState({
+          countdown: countdown
+        })
+      }
+    })
+
+    this.socket.on('PROMPT', prompt => {
+      this.setState({
+        prompt: prompt
+      })
     })
   }
 
   componentDidMount() {
     let roomID = this.props.match.params.id;
-    this.setState({ roomID: roomID })
+    this.setState({
+      roomID: roomID,
+    })
     this.socket.emit('START_GAME', {
       roomID: roomID,
     })
-    axios.get(`/api/rooms/${roomID}/images`)
-      .then(response => {
-        this.setState({ prompt: response.data })
-      })
   }
 
-  // playerWonRound = () => {
-  //   console.log('someone won');
-  //   this.setState({ redirect: true })
-  // }
-
   render() {
-    if (this.state.redirect && this.state.winner) {
+    if (this.state.redirect) {
       return (
         <Redirect to={{
-          pathname: `/rooms/${this.state.roomID}/scores`,
+          pathname: `/rooms/${this.state.roomID}/results`,
           state: {
             userName: this.props.location.state.userName,
-            winner: this.state.winner
+            winner: this.state.winner || null
           }
         }} />
       )
     }
     return (
       <div className="GamePlay">
-        <div className='PromptCounter'>
+        <div className='Prompt'>
           {
             this.state.prompt
               ? <Prompt prompt={this.state.prompt} />
               : null
           }
-          <Counter />
+        </div>
+        <div>
+          {this.state.countdown}
         </div>
         {
           this.state.roomID
@@ -74,7 +86,6 @@ class GamePlay extends Component {
               roomId={this.state.roomID}
               prompt={this.state.prompt}
               user={this.props.location.state.userName}
-            // roundWin={this.playerWonRound}
             />
             : null
         }

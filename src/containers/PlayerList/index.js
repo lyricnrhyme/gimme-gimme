@@ -3,7 +3,6 @@ import './styles.css';
 import axios from 'axios';
 import io from 'socket.io-client';
 import Player from '../../components/PlayerComponent';
-import Counter from '../../components/CounterComponent';
 import { Redirect } from 'react-router-dom';
 
 class PlayerList extends Component {
@@ -31,7 +30,11 @@ class PlayerList extends Component {
         this.setState({
           redirect: true
         })
-      } else {
+      } else if (countdown < 10) {
+        this.setState({
+          countdown: '0'+ countdown
+        })
+      }else {
         this.setState({
           countdown: countdown
         })
@@ -56,24 +59,14 @@ class PlayerList extends Component {
 
     axios.get(`/api/rooms/${roomID}`)
       .then(response => {
-        console.log(response.data.players)
-        response.data.players.map(player => {
-          this.setState({ players: [...this.state.players, player.name] })
+        return this.setState({
+          players: [...response.data.players]
         })
-        // this.setState({ players: response.data.players })
       })
-  }
-
-  tick() {
-    if (this.state.count === 0) {
-      this.setState({
-        redirect: true
-      })
-    }
   }
 
   render() {
-    if (this.state.redirect) {
+    if (this.state.redirect && this.state.players.length > 1) {
       return (
         <Redirect to={{
           pathname: `/rooms/${this.props.match.params.id}/images`,
@@ -82,18 +75,28 @@ class PlayerList extends Component {
           }
         }} />
       )
+    } else if (this.state.redirect) {
+      return (
+        <Redirect to={{
+          pathname: '/solo',
+        }}/>
+      )
     }
     return (
       <div className="PlayerList">
+        <div className="loader" id="loader1"></div>
+        <div className="loader" id="loader2"></div>
+        <div className="loader" id="loader3"></div>
+
+
         <div className='CodeCounter'>
-          <h1>Put Code Here</h1>
-          {/* <Counter seconds={this.state.seconds}/> */}
           {this.state.countdown}
         </div>
         <div className="room-success">Success! Room ID:
           <span>{this.props.match.params.id}</span>
         </div>
         <div className="player-name-list">Players Joined:</div>
+        <div className="players-list">
         <ul>
           {this.state.players
             ? this.state.players.map((player, idx) => {
@@ -105,7 +108,8 @@ class PlayerList extends Component {
             })
             : null
           }
-        </ul>
+          </ul>
+        </div>  
       </div>
     );
   }
