@@ -7,17 +7,21 @@
   opacity: 0;
   animation: fadein 3s forwards;
   /* animation-iteration-count: 1; */
-  animation-delay: 2s;
+  animation-delay: 1s;
   font-family: 'Varela Round', sans-serif;
 }
 
 .EnterForm form {
-  margin-top: 20px;
+  margin-top: -5%;
   height: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+#joinForm {
+  margin-top: -150px;
 }
 
 /*End Enter Form Page*/

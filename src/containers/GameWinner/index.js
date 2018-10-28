@@ -43,7 +43,7 @@ class GameWinner extends Component {
     }
     return (
       <div className="GameWinner">
-        <div className="game-winner">The Game Goes To: {this.state.winner}!</div>
+        <div className="game-winner">Winner: {this.state.winner}!</div>
         <div className="winning-photo">
           <img src={this.state.winningPhoto} alt="" />
         </div>

@@ -12,6 +12,7 @@
     color: white;
     font-size: 30px;
     font-family: 'Varela Round', sans-serif;
+    animation: fadein 3s forwards;
   }
   
   h1 span {
@@ -40,19 +41,22 @@
   h1 span:nth-child(9) {animation-delay: .9s}
   h1 span:nth-child(10) {animation-delay: 1s}
 
-
+/* 
   @keyframes gimme {
     from {top: 100vh}
     to {top:0vh}
     100% {transform: rotate(360deg)}
-  }
+  } */
   
   @keyframes bounce {
     100% {
       top: -10px;
       text-shadow: 
         0 5px 0 grey;
-
-
     } 
+  }
+
+  @keyframes fadein {
+    from {opacity:0}
+    to {opacity:1}
   }

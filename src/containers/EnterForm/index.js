@@ -82,7 +82,7 @@ class EnterForm extends Component {
           />
           <input type="submit" value="Create" />
         </form>
-        <form onSubmit={ this.joinRoom }>
+        <form onSubmit={ this.joinRoom } id="joinForm">
           <div>or</div>
           <div>Join Existing Room</div>
           <label>Name:</label>

@@ -81,37 +81,37 @@ class PlayerList extends Component {
           }
         }} />
       )
-    } else if (this.state.redirect) {
-      return (
-        <Redirect to={{
-          pathname: '/solo'
-        }} />
-      )
-    } else {
-      return (
-        <div className="PlayerList">
-          <div className='CodeCounter'>
-            {this.state.countdown}
-          </div>
-          <div className="room-success">Success! Room ID:
-            <span>{this.props.match.params.id}</span>
-          </div>
-          <div className="player-name-list">Players Joined:</div>
-          <ul>
-            {this.state.players
-              ? this.state.players.map((player, idx) => {
-                return (
-                  <li key={idx}>
-                    <Player player={player} />
-                  </li>
-                )
-              })
-              : null
-            }
-          </ul>
-        </div>
-      );
     }
+    return (
+      <div className="PlayerList">
+        <div className="loader" id="loader1"></div>
+        <div className="loader" id="loader2"></div>
+        <div className="loader" id="loader3"></div>
+
+
+        <div className='CodeCounter'>
+          {this.state.countdown}
+        </div>
+        <div className="room-success">Success! Room ID:
+          <span>{this.props.match.params.id}</span>
+        </div>
+        <div className="player-name-list">Players Joined:</div>
+        <div className="players-list">
+        <ul>
+          {this.state.players
+            ? this.state.players.map((player, idx) => {
+              return (
+                <li key={idx}>
+                  <Player player={player} />
+                </li>
+              )
+            })
+            : null
+          }
+          </ul>
+        </div>  
+      </div>
+    );
   }
 }
 
