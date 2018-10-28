@@ -19,20 +19,10 @@ class GamePlay extends Component {
     this.socket = io();
     this.socket.on('WINNER', username => {
       console.log(`${username} won this round!`)
-      this.setState({ winner: username })
-      this.setState({ redirect: true })
-    })
-
-    this.socket.on('TICK', countdown => {
-      if (countdown === 0) {
-        this.setState({
-          redirect: true
-        })
-      } else {
-        this.setState({
-          countdown: countdown
-        })
-      }
+      this.setState({
+        winner: username,
+        redirect: true
+      })
     })
 
     this.socket.on('TICK', countdown => {
@@ -67,7 +57,6 @@ class GamePlay extends Component {
       })
     }
   }
-
 
   render() {
     if (this.state.redirect && this.state.winner) {
