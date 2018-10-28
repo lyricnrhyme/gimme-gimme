@@ -78,6 +78,10 @@ io.on('connection', socket => {
     io.emit('WINNER', data.userName);
   });
 
+  socket.on('FINAL_REDIRECT', data => {
+    io.to(data.roomID).emit('TO_RESULTS', { finalRedirect: true })
+  })
+
   socket.on('END_ROUND', data => {
     socket.disconnect(true);
     // let countdown = 15;

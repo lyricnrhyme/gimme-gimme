@@ -12,7 +12,7 @@ function Player(props) {
       {
         props.player.score
           ? <div className="player-score">Score: {props.player.score}</div>
-          : null
+          : 0
       }
     </div>
   );

@@ -61,7 +61,6 @@ router.route('/')
         score: 0
       }],
       winner: null,
-      // round: 1,
       winningPhoto: ''
     })
 
@@ -86,25 +85,26 @@ router.route('/:id')
     const { playerName } = req.body;
     if (!rooms.length) {
       return res.json({ message: `Room doesn't exist!` })
-    }
-    rooms.map(room => {
-      if (room.roomID === roomID) {
-        let nameCheck = room.players.some(player => player.name === playerName)
-        if (!nameCheck) {
-          room.players.push({
-            name: playerName,
-            score: 0
-          });
-          return res.json({
-            roomID: room.roomID
-          })
+    } else {
+      rooms.map(room => {
+        if (room.roomID === roomID) {
+          let nameCheck = room.players.some(player => player.name === playerName)
+          if (!nameCheck) {
+            room.players.push({
+              name: playerName,
+              score: 0
+            });
+            return res.json({
+              roomID: room.roomID
+            })
+          } else {
+            return res.json({ message: `Player name taken in this room!` })
+          }
         } else {
-          return res.json({ message: `Player name taken in this room!` })
+          return res.json({ message: `Room doesn't exist!` })
         }
-      } else {
-        return res.json({ message: `Room doesn't exist!` })
-      }
-    })
+      })
+    }
   });
 
 router.post('/:id/images', upload.single('photo'), (req, res) => {
@@ -113,33 +113,33 @@ router.post('/:id/images', upload.single('photo'), (req, res) => {
   const { prompt, player } = req.body;
   let params = { url };
   let matchSuccess = false;
+  let finalRedirect = false;
   visualRecognition.classify(params, (err, response) => {
     if (err) console.log(err);
     else {
       let classifications = Object.values(response.images[0].classifiers[0].classes);
-      classifications.map(result => {
-        if (result.class.includes(prompt) && result.score > 0.5) {
-          let selectedRoom = rooms.find(room => room.roomID === roomID);
-          selectedRoom.winningPhoto = url;
-          selectedRoom.winner = player;
-          matchSuccess = true;
-          selectedRoom.players.map(participant => {
-            if (participant.name === selectedRoom.winner.name) {
-              participant.score++
-            }
-          });
-          let currentHighestScore;
-          selectedRoom.players.map(participant => {
-            if (!currentHighestScore) {
-              currentHighestScore = participant;
-            } else if (currentHighestScore.score < participant.score) {
-              currentHighestScore = participant;
-              room.highestScore = currentHighestScore;
-            }
-          })
-        }
-      })
-      if (matchSuccess) {
+      let matchingClassification = classifications.find(result => result.class.includes(prompt) && result.score > 0.5);
+      if (matchingClassification) {
+        rooms.map(room => {
+          if (room.roomID === roomID) {
+            room.players.map(participant => {
+              if (participant.name === player) {
+                room.winner = player;
+                room.winningPhoto = url;
+                participant.score++;
+                if (participant.score > 0) {
+                  finalRedirect = true;
+                }
+                matchSuccess = true;
+              }
+            })
+          }
+        })
+      }
+      if (matchSuccess && finalRedirect) {
+        return res.json({ success: true, finalRedirect: true })
+      }
+      else if (matchSuccess) {
         return res.json({ success: true })
       } else {
         return res.json({ success: false })
@@ -166,14 +166,17 @@ router.get('/:id/scores', (req, res) => {
 
 router.get('/:id/results', (req, res) => {
   const roomID = req.params.id;
-  // let room = rooms.filter(room => room.roomID === roomID)
-  // let players = room.players.filter(player => player.name !== room.highestScore.name)
-  // room.finalResults = {
-  //   winner: room.highestScore,
-  //   players: players,
-  // }
-  // rooms = rooms.filter(room => room.roomID !== roomID);
-  // res.json(room.finalResults);
+  let room = rooms.filter(room => room.roomID === roomID);
+  let currentHighestScore;
+  room[0].players.map(participant => {
+    if (!currentHighestScore) {
+      currentHighestScore = participant;
+    } else if (currentHighestScore.score < participant.score) {
+      currentHighestScore = participant;
+      room.highestScore = currentHighestScore;
+    }
+  })
+  return res.json(room[0]);
 })
 
 module.exports = router;

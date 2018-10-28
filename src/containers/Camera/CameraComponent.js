@@ -28,7 +28,9 @@ class Camera extends Component {
 
       axios.post(`/api/rooms/${this.props.roomId}/images`, form)
         .then(response => {
-          if (response.data.success || response.data.winner) {
+          if (response.data.finalRedirect) {
+            io().emit('FINAL_REDIRECT', { roomID: this.props.roomId });
+          } else if (response.data.success) {
             io().emit('WIN_ROUND', {
               roomID: this.props.roomId,
               userName: this.props.user
