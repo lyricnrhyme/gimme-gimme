@@ -59,20 +59,10 @@ class PlayerList extends Component {
 
     axios.get(`/api/rooms/${roomID}`)
       .then(response => {
-        console.log(response.data.players)
-        response.data.players.map(player => {
-          this.setState({ players: [...this.state.players, player.name] })
+        return this.setState({
+          players: [...response.data.players]
         })
-        // this.setState({ players: response.data.players })
       })
-  }
-
-  tick() {
-    if (this.state.countdown === -1) {
-      this.setState({
-        redirect: true
-      })
-    }
   }
 
   render() {

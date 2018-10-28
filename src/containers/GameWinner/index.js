@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import io from 'socket.io-client';
 import './styles.css';
 
 class GameWinner extends Component {
@@ -13,21 +14,28 @@ class GameWinner extends Component {
       redirect: false,
       players: null,
     }
+
+    this.socket = null;
   }
 
   componentDidMount() {
+    this.socket = io();
     const roomID = this.props.match.params.id;
     this.setState({ roomID: roomID })
     axios.get(`/api/rooms/${roomID}/results`)
       .then(response => {
         this.setState({
-          winner: response.data.winner.name,
+          winner: response.data.winner,
           winningPhoto: response.data.winningPhoto
         })
         if (response.data.players) {
           this.setState({ players: response.data.players })
         }
+        return true;
       })
+    this.socket.emit('END_ROUND', {
+      roomID: roomID
+    })
   }
 
   replay = e => {
@@ -41,15 +49,23 @@ class GameWinner extends Component {
         <Redirect to="/" />
       )
     }
-    return (
-      <div className="GameWinner">
-        <div className="game-winner">The Game Goes To: {this.state.winner}!</div>
-        <div className="winning-photo">
-          <img src={this.state.winningPhoto} alt="" />
+    if (this.props.location.state.winner) {
+      return (
+        <div className="GameWinner">
+          <div className="game-winner">Winner: {this.state.winner}</div>
+          <div className="winning-photo">
+            <img src={this.state.winningPhoto} alt="" />
+          </div>
+          <button onClick={this.replay}>Play Again</button>
         </div>
-        <button onClick={this.replay}>Replay</button>
-      </div>
-    );
+      );
+    }
+    return (
+      <Fragment>
+        <div>No Winners Today, Try Again?</div>
+        <button onClick={this.replay}>Play Again</button>
+      </Fragment>
+    )
   }
 }
 

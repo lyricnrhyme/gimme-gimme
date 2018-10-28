@@ -6,8 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import EnterForm from '../EnterForm';
 import PlayerList from '../PlayerList';
 import GamePlay from '../GamePlay';
-import RoundEnd from '../RoundEnd';
-
+// import RoundEnd from '../RoundEnd';
 
 // components
 import Header from '../../components/HeaderComponent';
@@ -21,8 +20,9 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact={true} path='/' component={EnterForm} />
+            <Route exact={true} path='/rooms' component={EnterForm} />
             <Route path='/rooms/:id/images' component={GamePlay} />
-            <Route path='/rooms/:id/scores' component={RoundEnd} />
+            {/* <Route path='/rooms/:id/scores' component={RoundEnd} /> */}
             <Route path='/rooms/:id/results' component={GameWinner} />
             <Route path='/rooms/:id' component={PlayerList} />
           </Switch>
