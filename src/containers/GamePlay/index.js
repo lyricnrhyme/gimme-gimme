@@ -24,7 +24,18 @@ class GamePlay extends Component {
     })
 
     this.socket.on('TICK', countdown => {
-      console.log(countdown);
+      if (countdown === 0) {
+        this.setState({
+          redirect: true
+        })
+      } else {
+        this.setState({
+          countdown: countdown
+        })
+      }
+    })
+
+    this.socket.on('TICK', countdown => {
       if (countdown === 0) {
         this.setState({
           redirect: true
@@ -59,7 +70,6 @@ class GamePlay extends Component {
 
 
   render() {
-    console.log(this.state.countdown);
     if (this.state.redirect && this.state.winner) {
       return (
         <Redirect to={{

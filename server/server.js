@@ -26,7 +26,7 @@ const app = server.listen(PORT, () => {
 
 const io = socket(app);
 
-io.on('connection', socket => {
+io.on('connection', socket => {  
   socket.on('CREATE', data => {
     socket.join(data.roomID);
     console.log('create', socket.rooms);
@@ -48,19 +48,33 @@ io.on('connection', socket => {
   })
 
   socket.on('START_GAME', startData => {
-    let countdown = 30;
-    console.log('start ', socket.rooms);
+    socket.join(startData.roomID)
+    let countdown = 60;
+
     const timer = setInterval(() => {
       io.to(startData.roomID).emit('TICK', countdown)
       countdown--;
-      if (countdown === -2) {
+
+      if (countdown === -1) {        
         clearInterval(timer);
       }
     }, 1000)
   });
 
   socket.on('WIN_ROUND', data => {
+    socket.join(data.roomID)
+    let countdown = 15;
+
+    const timer = setInterval(() => {
+      io.to(data.roomID).emit('ROUND_END', countdown)
+      countdown--;
+
+      if (countdown === -1) {
+        clearInterval(timer);
+      }
+    }, 1000)
     io.emit('WINNER', data.userName);
+    
   });
 
   socket.on('END_ROUND', data => {

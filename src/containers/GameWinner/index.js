@@ -18,10 +18,8 @@ class GameWinner extends Component {
   componentDidMount() {
     const roomID = this.props.match.params.id;
     this.setState({ roomID: roomID })
-    console.log('hi ', roomID);
     axios.get(`/api/rooms/${roomID}/results`)
       .then(response => {
-        console.log(response);
         this.setState({
           winner: response.data.winner.name,
           winningPhoto: response.data.winningPhoto
@@ -45,7 +43,7 @@ class GameWinner extends Component {
     }
     return (
       <div className="GameWinner">
-        <div className="game-winner">The Game Goes To{this.state.winner}!</div>
+        <div className="game-winner">The Game Goes To: {this.state.winner}!</div>
         <div className="winning-photo">
           <img src={this.state.winningPhoto} alt="" />
         </div>

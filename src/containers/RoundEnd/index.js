@@ -10,15 +10,15 @@ class RoundEnd extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      redirect: false,
       finalRedirect: false,
       countdown: null,
       roomID: null,
       players: [],
       photo: null,
+      redirect: false
     }
     this.socket = io();
-    this.socket.on('TICK', countdown => {
+    this.socket.on('ROUND_END', countdown => {
       if (countdown === 0) {
         this.setState({
           redirect: true
@@ -34,6 +34,9 @@ class RoundEnd extends Component {
   componentDidMount() {
     const roomID = this.props.match.params.id;
     this.setState({ roomID: roomID })
+    this.socket.emit('WIN_ROUND', {
+      roomID: roomID
+    })
     axios.get(`/api/rooms/${roomID}/scores`)
       .then(response => {
         if (!response.data.round) {
@@ -44,6 +47,7 @@ class RoundEnd extends Component {
           io().emit('END_ROUND', { roomID: roomID });
         }
       })
+    console.log('???', this.state.countdown)
   }
 
   tick() {
@@ -89,9 +93,8 @@ class RoundEnd extends Component {
             ? <ScoreBoard players={this.state.players} />
             : null
         }
-      </div>
+      </div >
     );
   }
 }
-
 export default RoundEnd;
