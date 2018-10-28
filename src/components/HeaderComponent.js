@@ -1,11 +1,28 @@
 import React, { Component } from 'react';
-import './styles.css';
+import './HeaderComponent.css';
+import gimme from '../assets/gimme.png'
 
 class Header extends Component {
   render() {
+    console.log('gimme', gimme)
     return (
       <div className="Header">
-        <h1>Gimme Gimme</h1>
+        {/* <img src={gimme}/>   */}
+        {/* <h1>Gimme Gimme</h1> */}
+        {/* <button> +HELP </button> */}
+        <h1>
+          <span>G</span>
+          <span>I</span>
+          <span>M</span>
+          <span>M</span>
+          <span>E</span>
+          <br/>
+          <span>G</span>
+          <span>I</span>
+          <span>M</span>
+          <span>M</span>
+          <span>E</span>
+        </h1>
       </div>
     );
   }
