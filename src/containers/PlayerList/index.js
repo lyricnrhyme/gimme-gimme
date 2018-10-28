@@ -30,7 +30,11 @@ class PlayerList extends Component {
         this.setState({
           redirect: true
         })
-      } else {
+      } else if (countdown < 10) {
+        this.setState({
+          countdown: '0'+ countdown
+        })
+      }else {
         this.setState({
           countdown: countdown
         })
