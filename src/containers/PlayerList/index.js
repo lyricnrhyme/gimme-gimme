@@ -12,6 +12,7 @@ class PlayerList extends Component {
       timer: null,
       countdown: null,
       redirect: false,
+      roomID: null,
       players: []
     }
 
@@ -32,9 +33,9 @@ class PlayerList extends Component {
         })
       } else if (countdown < 10) {
         this.setState({
-          countdown: '0'+ countdown
+          countdown: '0' + countdown
         })
-      }else {
+      } else {
         this.setState({
           countdown: countdown
         })
@@ -44,7 +45,7 @@ class PlayerList extends Component {
 
   componentDidMount() {
     let roomID = this.props.match.params.id;
-
+    this.setState({ roomID: roomID })
     if (this.props.location.state.roomCreated) {
       this.socket.emit('CREATE', {
         roomID: roomID,
@@ -69,7 +70,7 @@ class PlayerList extends Component {
     if (this.state.redirect && this.state.players.length > 1) {
       return (
         <Redirect to={{
-          pathname: `/rooms/${this.props.match.params.id}/images`,
+          pathname: `/rooms/${this.state.roomID}/images`,
           state: {
             userName: this.props.location.state.userName
           }
@@ -78,8 +79,8 @@ class PlayerList extends Component {
     } else if (this.state.redirect) {
       return (
         <Redirect to={{
-          pathname: '/solo',
-        }}/>
+          pathname: `/rooms/${this.state.roomID}/solo`,
+        }} />
       )
     }
     return (
@@ -93,23 +94,23 @@ class PlayerList extends Component {
           {this.state.countdown}
         </div>
         <div className="room-success">Success! Room ID:
-          <span>{this.props.match.params.id}</span>
+          <span>{this.state.roomID}</span>
         </div>
         <div className="player-name-list">Players Joined:</div>
         <div className="players-list">
-        <ul>
-          {this.state.players
-            ? this.state.players.map((player, idx) => {
-              return (
-                <li key={idx}>
-                  <Player player={player} />
-                </li>
-              )
-            })
-            : null
-          }
+          <ul>
+            {this.state.players
+              ? this.state.players.map((player, idx) => {
+                return (
+                  <li key={idx}>
+                    <Player player={player} />
+                  </li>
+                )
+              })
+              : null
+            }
           </ul>
-        </div>  
+        </div>
       </div>
     );
   }

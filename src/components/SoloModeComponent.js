@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './styles.css';
-import { Redirect } from 'react-router-dom';
 
 class SoloMode extends Component {
   constructor(props) {

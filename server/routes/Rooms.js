@@ -84,20 +84,25 @@ router.route('/:id')
   .post((req, res) => {
     const roomID = req.params.id;
     const { playerName } = req.body;
-
+    if (!rooms.length) {
+      return res.json({ message: `Room doesn't exist!` })
+    }
     rooms.map(room => {
       if (room.roomID === roomID) {
-        room.players.push({
-          name: playerName,
-          score: 0
-        });
-
-        return res.json({
-          roomID: room.roomID
-        })
+        let nameCheck = room.players.some(player => player.name === playerName)
+        if (nameCheck) {
+          room.players.push({
+            name: playerName,
+            score: 0
+          });
+          return res.json({
+            roomID: room.roomID
+          })
+        } else {
+          return res.json({ message: `Player name taken in this room!` })
+        }
       } else {
-        /* HOW TO HANDLE ROOM THAT DOESN'T EXIST??? */
-        return false;
+        return res.json({ message: `Room doesn't exist!` })
       }
     })
   });
