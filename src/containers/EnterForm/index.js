@@ -60,7 +60,7 @@ class EnterForm extends Component {
             name="createNameInput"
             onChange={this.handleChange}
           />
-          <button onClick={this.createRoom}>Create</button>
+            <button onClick={this.createRoom}>Create</button>
           <div>or</div>
           <div>Join Existing Room</div>
           <label>Name:</label>

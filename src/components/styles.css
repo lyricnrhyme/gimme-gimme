@@ -1,4 +1,4 @@
-.Header {
+/* .Header {
   background-color: rgb(35, 150, 35);
   color: white;
   height: 13vh;
@@ -7,3 +7,29 @@
   align-items: center;
   justify-content: center;
 }
+
+img{
+  height: 10vh;
+  width: 50vh;
+  position: relative;
+  animation-name: gimme;
+  animation-duration: 3s;
+  animation-delay: 1s;
+  /* animation: spin 4s; */
+
+/* } */
+/* @-webkit-keyframes gimme {
+  from {top: 100vh}
+  to {top:0vh}
+  
+} */
+
+/* @keyframes gimme {
+  from {top: 100vh}
+  to {top:0vh}
+  100% {transform: rotate(360deg)}
+}
+
+@keyframes spin {
+  100% {transform: rotate(360deg)}
+}  */

@@ -11,6 +11,7 @@ const { createRoom } = require('../helper/room');
 server.use(cors());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }))
+server.use(express.static('public'))
 
 /*********************************************/
 /***       Room/Player Variables          ***/
