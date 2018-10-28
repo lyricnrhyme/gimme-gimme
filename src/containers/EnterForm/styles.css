@@ -27,7 +27,7 @@
   margin: 10px;
 }
 
-input[type=text] {
+.EnterForm form input {
   width: 40%;
   height: 33px;
   /* padding: 5px; */
