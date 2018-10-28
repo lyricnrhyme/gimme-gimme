@@ -30,8 +30,14 @@ class SoloMode extends Component {
       return (
         <div>
           <br/><br/>
-          <div>
-          <iframe width='100%' height='300' src="https://www.youtube.com/embed/5dbG4wqN0rQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen className='Doge'/>
+          <div className='Doge'>
+          <iframe width='100%' height='300' src="https://www.youtube.com/embed/5dbG4wqN0rQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen/>
+          <br/>
+          <a href='/'>
+          <div className='BackButton'>
+          <div className='Text'>Back</div>
+          </div>
+          </a>
           </div>
         </div>
       )

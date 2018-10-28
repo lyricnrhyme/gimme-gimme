@@ -61,4 +61,28 @@ img{
 
 .Doge {
   width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.BackButton {
+  width: 140px;
+  height: 60px;
+  background-color: rgb(139, 213, 231);
+  margin: auto;
+  border-radius: 6px;
+  color: white;
+  font-size: 30px;
+  font-family: 'Varela Round', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  color: white;
 }
