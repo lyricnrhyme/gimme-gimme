@@ -9,10 +9,10 @@ class EnterForm extends Component {
     super(props)
 
     this.state = {
-      createNameInput: '',
-      joinNameInput: '',
+      roomCreated: false,
+      nameInput: '',
       roomInput: '',
-      roomId: '',
+      roomID: '',
       redirect: false
     }
     this.socket = null;
@@ -28,45 +28,68 @@ class EnterForm extends Component {
 
   createRoom = e => {
     e.preventDefault();
-    axios.post('/rooms', { player: this.state.createNameInput })
+    
+    axios.post('/api/rooms', { playerName: this.state.nameInput })
       .then(response => {
         this.socket = io();
-        this.setState({ roomId: response.data })
-        this.setState({ redirect: true })
+        this.setState({
+          roomCreated: true,
+          roomID: response.data.roomID,
+          redirect: true
+        })
+      })
+      .catch(err => {
+        console.log(err);
+        
       })
   }
 
   joinRoom = e => {
-    e.preventDefault();
-    axios.post(`/rooms/${this.state.roomInput}`, { player: this.state.joinNameInput })
+    e.preventDefault();    
+    axios.post(`/api/rooms/${this.state.roomInput}`, { playerName: this.state.nameInput })
       .then(response => {
-        this.setState({ roomId: response.data })
-        this.setState({ redirect: true })
+        this.setState({
+          roomID: response.data.roomID,
+          redirect: true
+        })
       })
+      .catch(err => {
+        console.log(err);
+      
+    })
   }
 
   render() {
-    if (this.state.redirect && this.state.roomId.length > 0) {
+    if (this.state.redirect && this.state.roomID.length > 0) {
       return (
-        <Redirect to={`/rooms/${this.state.roomId}`} />
+        <Redirect to={{
+          pathname: `/rooms/${this.state.roomID}`,
+          state: {
+            roomCreated: this.state.roomCreated,
+            userName: this.state.nameInput
+          }
+        }} />
       )
     }
     return (
       <div className="EnterForm">
-        <form>
+        <form onSubmit ={ this.createRoom  }>
           <label>To Create Room, Enter Name:</label>
           <input
             type="text"
-            name="createNameInput"
+            name="nameInput"
             onChange={this.handleChange}
           />
-            <button onClick={this.createRoom}>Create</button>
+          <input type="submit" value="Create" />
+        </form>
+
+        <form onSubmit={ this.joinRoom }>
           <div>or</div>
           <div>Join Existing Room</div>
           <label>Name:</label>
           <input
             type="text"
-            name="joinNameInput"
+            name="nameInput"
             onChange={this.handleChange}
           />
           <label>Room:</label>
@@ -77,7 +100,7 @@ class EnterForm extends Component {
             onChange={this.handleChange}
             maxLength="6"
           />
-          <button onClick={this.joinRoom}>Join</button>
+          <input type="submit" value="Join" />
         </form>
       </div>
     );
