@@ -11,6 +11,7 @@ class RoundEnd extends Component {
     super(props)
     this.state = {
       redirect: false,
+      finalRedirect: false,
       countdown: null,
       roomID: null,
       players: [],
@@ -35,12 +36,13 @@ class RoundEnd extends Component {
     this.setState({ roomID: roomID })
     axios.get(`/api/rooms/${roomID}/scores`)
       .then(response => {
-        this.setState({ players: response.data.players })
-        this.setState({ photo: response.data.winningPhoto })
-        io().emit('END_ROUND', { roomID: roomID });
-        // if (response.data.redirect) {
-        //   io().emit('REDIRECT')
-        // }
+        if (!response.data.round) {
+          return this.setState({ finalRedirect: true })
+        } else {
+          this.setState({ players: response.data.players })
+          this.setState({ photo: response.data.winningPhoto })
+          io().emit('END_ROUND', { roomID: roomID });
+        }
       })
   }
 
@@ -57,6 +59,16 @@ class RoundEnd extends Component {
       return (
         <Redirect to={{
           pathname: `/rooms/${this.state.roomID}/images`,
+          state: {
+            userName: this.props.location.state.userName
+          }
+        }} />
+      )
+    }
+    if (this.state.finalRedirect) {
+      return (
+        <Redirect to={{
+          pathname: `/rooms/${this.state.roomID}/results`,
           state: {
             userName: this.props.location.state.userName
           }

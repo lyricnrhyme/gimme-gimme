@@ -36,7 +36,7 @@ io.on('connection', socket => {
       io.to(data.roomID).emit('TICK', countdown)
       countdown--;
 
-      if (countdown === -1) {
+      if (countdown === -2) {
         clearInterval(timer);
       }
     }, 1000)
@@ -53,7 +53,7 @@ io.on('connection', socket => {
     const timer = setInterval(() => {
       io.to(startData.roomID).emit('TICK', countdown)
       countdown--;
-      if (countdown === -1) {
+      if (countdown === -2) {
         clearInterval(timer);
       }
     }, 1000)
@@ -67,7 +67,7 @@ io.on('connection', socket => {
     let countdown = 15;
 
     const timer = setInterval(() => {
-      io.to(data.roomID).emit('TICK', countdown)
+      io.emit('TICK', countdown)
       countdown--;
 
       if (countdown === -1) {

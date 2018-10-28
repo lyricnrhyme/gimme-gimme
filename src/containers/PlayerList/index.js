@@ -64,7 +64,7 @@ class PlayerList extends Component {
   }
 
   tick() {
-    if (this.state.countdown === 0) {
+    if (this.state.countdown === -1) {
       this.setState({
         redirect: true
       })

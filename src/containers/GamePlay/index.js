@@ -91,7 +91,6 @@ class GamePlay extends Component {
               roomId={this.state.roomID}
               prompt={this.state.prompt}
               user={this.props.location.state.userName}
-            // roundWin={this.playerWonRound}
             />
             : null
         }

@@ -10,7 +10,7 @@ import RoundEnd from '../RoundEnd';
 // components
 import Header from '../../components/HeaderComponent';
 import GamePlay from '../GamePlay';
-import GameWinner from '../../components/GameWinnerComponent';
+import GameWinner from '../GameWinner';
 
 class App extends Component {
 
