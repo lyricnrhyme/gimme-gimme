@@ -76,6 +76,9 @@ class EnterForm extends Component {
     } else {
       return (
         <div className="EnterForm">
+          <div id="vote-moar">
+            <a href="https://www.nodeknockout.com/entries/113-gimme-moar/vote" target="_blank" rel="noopener noreferrer">Vote for us!</a>
+          </div>
           <form onSubmit={this.createRoom}>
             <label>To Create Room, Enter Name:</label>
             <input
@@ -86,8 +89,7 @@ class EnterForm extends Component {
             <input type="submit" value="Create" />
           </form>
           <form onSubmit={this.joinRoom} id="joinForm">
-            <div>or</div>
-            <div>Join Existing Room</div>
+            <div>or <br/> Join Existing Room</div>
             <div className="error-message">{this.state.errorMessage}</div>
             <label>Name:</label>
             <input
