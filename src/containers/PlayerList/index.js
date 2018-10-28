@@ -11,11 +11,7 @@ class PlayerList extends Component {
     super(props)
     this.state = {
       timer: null,
-<<<<<<< HEAD
-      count: 3,
-=======
       countdown: null,
->>>>>>> tick-tock
       redirect: false,
       players: []
     }
