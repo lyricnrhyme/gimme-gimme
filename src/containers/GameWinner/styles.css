@@ -50,6 +50,7 @@ img {
 }
 
 .no-winner {
+    /* text-align:center; */
     font-size: 35px;
     color: white;
     font-weight: bold;
@@ -58,4 +59,8 @@ img {
     animation: fadein 3s forwards;
     /* animation-duration: 3s; */
     animation-delay: 1s;
+}
+
+#no-winner-container {
+    text-align: center;
 }

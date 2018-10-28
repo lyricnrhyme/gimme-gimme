@@ -1,4 +1,10 @@
 /*Enter Form Page*/
+@media only screen and (min-width: 451px) {
+  .EnterForm {
+    display: none;
+  }
+}
+
 .EnterForm {
  background: transparent;
   height: 87vh;
@@ -9,6 +15,9 @@
   /* animation-iteration-count: 1; */
   animation-delay: 1s;
   font-family: 'Varela Round', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .EnterForm form {
@@ -20,27 +29,29 @@
   justify-content: center;
 }
 
-.joinForm {
+#joinForm {
   margin-top: -50%;
+  text-align: center;
 }
 
 /*End Enter Form Page*/
 
 .EnterForm form label {
   font-size: 18px;
-  margin: 10px;
+  margin: 6px;
 }
 
 .EnterForm form input {
+  text-align: center;
   width: 40%;
   height: 33px;
   /* padding: 5px; */
-  font-size: 16px;
-  margin: 10px;
+  font-size: 14px;
+  margin: 6px;
   color: grey;
   border: none;
   background: white;
-  box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 2px rgba(0, 0, 0, 0.3);
   border-top-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -48,13 +59,13 @@
 .EnterForm form button {
   width: 30%;
   height: 33px;
-  font-size: 16px;
-  background: white;
+  font-size: 14spx;
+  background: rgba(255, 255, 255, 0,7);
   color: grey;
   font-weight: bold;
   margin-bottom: 15px;
   border: none;
-  box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 2px rgba(0, 0, 0, 0.3);
   border-top-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -81,6 +92,9 @@
 @media only screen and (min-width: 450px) {
   .EnterForm form {
     margin-top: -5%;
+  }
+  .joinForm {
+    margin-top: -20%;
   }
 }
 

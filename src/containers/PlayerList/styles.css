@@ -4,16 +4,17 @@
 }
 
 .CodeCounter {
-    color: grey;
+    color: white;
     font-family: 'Varela Round', sans-serif;
     font-size: 30px;
+    text-shadow: 4x 2px rgba(0,0,0,0.3);
     text-align: center;
     margin: auto;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 50%;
-    padding: 4%;
+    /* background: rgba(255, 255, 255, 0.7); */
+    /*  border-radius: 50%; */
+    /* padding: 4%;
     width: 5%;
-    box-shadow: 4px 2px rgba(0,0,0,0.3)
+    box-shadow: 4px 2px rgba(0,0,0,0.3) */
 }
 
 .room-success {
@@ -34,6 +35,8 @@ ul {
     list-style: none;
     margin-left: -5%;
 }
+
+
 
 /* 
 .loader {

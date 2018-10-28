@@ -77,25 +77,24 @@ class EnterForm extends Component {
       return (
         <div className="EnterForm">
           <form onSubmit={this.createRoom}>
-            <label>To Create Room, Enter Name:</label>
+            <label>Create Room</label>
             <input
               type="text"
               name="nameInput"
               onChange={this.handleChange}
+              placeholder="player name"
             />
             <input type="submit" value="Create" />
           </form>
           <form onSubmit={this.joinRoom} id="joinForm">
-            <div>or</div>
             <div>Join Existing Room</div>
             <div className="error-message">{this.state.errorMessage}</div>
-            <label>Name:</label>
             <input
               type="text"
               name="nameInput"
               onChange={this.handleChange}
+              placeholder="player name"
             />
-            <label>Room:</label>
             <input
               type="text"
               id="room-input"
@@ -104,6 +103,7 @@ class EnterForm extends Component {
               maxLength="6"
               autoCapitalize="none"
               autoCorrect="none"
+              placeholder="room id"
             />
             <input type="submit" value="Join" />
           </form>

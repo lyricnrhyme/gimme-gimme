@@ -30,7 +30,11 @@ const io = socket(app);
 io.on('connection', socket => {
   socket.on('CREATE', data => {
     socket.join(data.roomID);
+<<<<<<< HEAD
     let countdown = 10;
+=======
+    let countdown = 30;
+>>>>>>> development
 
     const timer = setInterval(() => {
       io.to(data.roomID).emit('TICK', countdown)
@@ -50,7 +54,7 @@ io.on('connection', socket => {
   socket.on('START_GAME', startData => {
     socket.join(startData.roomID)
     io.to(startData.roomID).emit('PROMPT', generatePrompt())
-    let countdown = 10;
+    let countdown = 30;
 
     const timer = setInterval(() => {
       io.to(startData.roomID).emit('TICK', countdown)
