@@ -20,11 +20,12 @@
   animation: fadein 3s forwards;
 }
 
-#Rules {
-  width: 90%;
-  display: flex;
-  justify-content: flex-end;
-}
+  #Rules {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
 
 h1 span {
   position: relative;

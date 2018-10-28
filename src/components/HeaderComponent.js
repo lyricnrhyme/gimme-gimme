@@ -38,11 +38,19 @@ class Header extends Component {
     this.setState({modalIsOpen: false});
   }
 
+  voteForMoar = e => {
+    e.preventDefault();
+    window.open('https://www.nodeknockout.com/entries/113-gimme-moar/vote', '_blank');
+  }
+
 
   render() {
     return (
       <div className="Header">
-        <div id='Rules'><button onClick={this.openModal}>How to Play</button></div>
+        <div id='Rules'>
+          <button onClick={this.voteForMoar}>Vote for Us!</button>
+          <button onClick={this.openModal}>How to Play</button>
+        </div>
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
@@ -58,7 +66,7 @@ class Header extends Component {
                 <li>- Gameplays consist of three rounds</li>
                 <li>- You can create a room or join a room. If you choose to create a room, remember to share the room code with your friends!</li>
                 <li>- Upload your most accurate photo based on the prompt</li>
-                <li>- The round ends when the first peron submits the correct photo, points are tallied at the end of each round</li>
+                <li>- The round ends when the first person submits the correct photo, points are tallied at the end of each round</li>
             </ul>
             <button onClick={this.closeModal}>close</button>
         </div>
