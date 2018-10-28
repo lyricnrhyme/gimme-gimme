@@ -66,7 +66,7 @@ class PlayerList extends Component {
   }
 
   render() {
-    if (this.state.redirect) {
+    if (this.state.redirect && this.state.players.length > 1) {
       return (
         <Redirect to={{
           pathname: `/rooms/${this.props.match.params.id}/images`,
@@ -74,6 +74,12 @@ class PlayerList extends Component {
             userName: this.props.location.state.userName
           }
         }} />
+      )
+    } else if (this.state.redirect) {
+      return (
+        <Redirect to={{
+          pathname: '/solo',
+        }}/>
       )
     }
     return (
