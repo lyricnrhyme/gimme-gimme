@@ -61,7 +61,8 @@ router.route('/')
         name: playerName,
         score: 0
       }],
-      round: 1
+      round: 1,
+      winningPhoto: ''
     })
 
     return res.json({
@@ -110,8 +111,6 @@ router.post('/:id/images', upload.single('photo'), (req, res) => {
   const roomID = req.params.id;
   const { prompt, player } = req.body;
   let params = { url }
-  // let classifiedResults;
-  // let classifyPromise = new Promise((resolve, reject) => {
   visualRecognition.classify(params, (err, response) => {
     if (err) reject(err);
     else {
@@ -120,6 +119,7 @@ router.post('/:id/images', upload.single('photo'), (req, res) => {
         if (result.class === prompt && result.score > 0.5) {
           rooms.map(room => {
             if (room.roomID === roomID) {
+              room.winningPhoto = url;
               room.players.map(participants => {
                 if (participants.name === player) {
                   participants.score += 1;
@@ -138,18 +138,57 @@ router.get('/:id/scores', (req, res) => {
   const roomID = req.params.id;
   rooms.map(room => {
     if (room.roomID === roomID) {
-      room.round += 1;
-      if (room.round < 5) {
-        res.json(room.players);
-      } else {
+      if (room.round < 2) {
+        room.round += 1;
         res.json({
+          winningPhoto: room.winningPhoto,
+          players: room.players,
           redirect: true,
-          players: room.players
+          round: room.round
+        });
+      } else {
+        let winner = null;
+        room.players.map(player => {
+          if (!winner) {
+            winner = player;
+          } else if (winner.score < player.score) {
+            winner = player
+          }
+          res.json({
+            winner,
+            winningPhoto: room.winningPhoto,
+            players: room.players.filter(player => player.name !== winner.name),
+            redirect: true
+          })
         })
       }
     }
   })
 })
 
+router.get('/:id/results', (req, res) => {
+  const roomID = req.params.id;
+  rooms.map(room => {
+    let finalResults = null;
+    if (room.roomID === roomID) {
+      let winner = null;
+      room.players.map(player => {
+        if (!winner) {
+          winner = player;
+        } else if (winner.score < player.score) {
+          winner = player
+        }
+        finalResults = {
+          winner,
+          winningPhoto: room.winningPhoto,
+          players: room.players.filter(player => player.name !== winner.name)
+        }
+      })
+      let index = rooms.indexOf(room);
+      rooms.splice(index, 1);
+      res.json(finalResults)
+    }
+  })
+})
 
 module.exports = router;

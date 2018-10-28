@@ -11,10 +11,6 @@ class Camera extends Component {
     }
   }
 
-  componentDidMount() {
-    console.log(this.props);
-  }
-
   handleCapture = e => {
     const file = e.target.files[0];
     this.setState({ photo: file })
@@ -37,9 +33,6 @@ class Camera extends Component {
             })
           }
         })
-      // .then(() => {
-      //   this.props.roundWin()
-      // })
     }
   }
 

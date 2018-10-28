@@ -26,17 +26,17 @@ const app = server.listen(PORT, () => {
 
 const io = socket(app);
 
-io.on('connection', socket => {
+io.on('connection', socket => {  
   socket.on('CREATE', data => {
     socket.join(data.roomID);
-
-    let countdown = 60;
+    console.log('create', socket.rooms);
+    let countdown = 10;
 
     const timer = setInterval(() => {
       io.to(data.roomID).emit('TICK', countdown)
       countdown--;
 
-      if (countdown === -1) {        
+      if (countdown === -2) {
         clearInterval(timer);
       }
     }, 1000)
@@ -48,13 +48,47 @@ io.on('connection', socket => {
   })
 
   socket.on('START_GAME', startData => {
-    // console.log('start game');
+    socket.join(startData.roomID)
+    let countdown = 60;
+
+    const timer = setInterval(() => {
+      io.to(startData.roomID).emit('TICK', countdown)
+      countdown--;
+
+      if (countdown === -1) {        
+        clearInterval(timer);
+      }
+    }, 1000)
   });
 
   socket.on('WIN_ROUND', data => {
-    // console.log(data);
+    socket.join(data.roomID)
+    let countdown = 15;
+
+    const timer = setInterval(() => {
+      io.to(data.roomID).emit('ROUND_END', countdown)
+      countdown--;
+
+      if (countdown === -1) {
+        clearInterval(timer);
+      }
+    }, 1000)
     io.emit('WINNER', data.userName);
+    
   });
+
+  socket.on('END_ROUND', data => {
+    let countdown = 15;
+
+    const timer = setInterval(() => {
+      io.emit('TICK', countdown)
+      countdown--;
+
+      if (countdown === -1) {
+        clearInterval(timer);
+      }
+    }, 1000)
+  })
 
   socket.on('REDIRECT', () => {
     io.emit('MOVE_TO_NEXT_ROUND', { redirect: true })

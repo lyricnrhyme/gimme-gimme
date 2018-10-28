@@ -3,7 +3,6 @@ import './styles.css';
 import axios from 'axios';
 import io from 'socket.io-client';
 import Player from '../../components/PlayerComponent';
-import Counter from '../../components/CounterComponent';
 import { Redirect } from 'react-router-dom';
 
 class PlayerList extends Component {
@@ -65,7 +64,7 @@ class PlayerList extends Component {
   }
 
   tick() {
-    if (this.state.count === 0) {
+    if (this.state.countdown === -1) {
       this.setState({
         redirect: true
       })
@@ -88,10 +87,9 @@ class PlayerList extends Component {
         <div className="loader" id="loader1"></div>
         <div className="loader" id="loader2"></div>
         <div className="loader" id="loader3"></div>
-        {/* <div className="loader" id="loader4"></div> */}
-        <div className="CodeCounter">
-          {/* <h1>Put Code Here</h1> */}
-          {/* <Counter seconds={this.state.seconds}/> */}
+
+
+        <div className='CodeCounter'>
           {this.state.countdown}
         </div>
         <div className="room-success">Success! Room ID:
