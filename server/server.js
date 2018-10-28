@@ -52,19 +52,19 @@ io.on('connection', socket => {
     io.to(startData.roomID).emit('PROMPT', generatePrompt())
     let countdown = 30;
 
-    const timer = setInterval(() => {
-      io.to(startData.roomID).emit('TICK', countdown)
-      countdown--;
+    // const timer = setInterval(() => {
+    //   io.to(startData.roomID).emit('TICK', countdown)
+    //   countdown--;
 
-      if (countdown === -1) {
-        clearInterval(timer);
-      }
-    }, 1000)
+    //   if (countdown === -1) {
+    //     clearInterval(timer);
+    //   }
+    // }, 1000)
   });
 
   socket.on('WIN_ROUND', data => {
     socket.join(data.roomID)
-    let countdown = 15;
+    let countdown = 10;
     io.to(data.roomID).emit('REDIRECT', data.userName)
 
     const timer = setInterval(() => {
