@@ -6,17 +6,19 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import EnterForm from '../EnterForm';
 import PlayerList from '../PlayerList';
 import GamePlay from '../GamePlay';
+import GameWinner from '../GameWinner';
 import RoundEnd from '../RoundEnd';
 
 // components
 import Header from '../../components/HeaderComponent';
-import GameWinner from '../GameWinner';
 import SoloMode from '../../components/SoloModeComponent';
+import Overlay from '../../components/OverlayComponent';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
+        <Overlay />
         <Header />
         <Router>
           <Switch>
