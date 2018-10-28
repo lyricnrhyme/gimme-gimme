@@ -48,5 +48,16 @@ button {
 }
 
 button:active:after {
-    
+    border: 3px solid grey;
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    border-left-color: transparent;
+    animation: rotate 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
+    background: white;
+}
+
+@keyframes rotate {
+    0%{transform: rotateZ(-360deg)}
+    100%{transform: rotateZ(0deg)}
 }
