@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import io from 'socket.io-client';
@@ -31,7 +31,6 @@ class GameWinner extends Component {
         if (response.data.players) {
           this.setState({ players: response.data.players })
         }
-
         return true;
       })
     this.socket.emit('END_ROUND', {
@@ -50,15 +49,23 @@ class GameWinner extends Component {
         <Redirect to="/" />
       )
     }
-    return (
-      <div className="GameWinner">
-        <div className="game-winner">Winner: {this.state.winner}</div>
-        <div className="winning-photo">
-          <img src={this.state.winningPhoto} alt="" />
+    if (this.props.location.state.winner) {
+      return (
+        <div className="GameWinner">
+          <div className="game-winner">Winner: {this.state.winner}</div>
+          <div className="winning-photo">
+            <img src={this.state.winningPhoto} alt="" />
+          </div>
+          <button onClick={this.replay}>Play Again</button>
         </div>
+      );
+    }
+    return (
+      <Fragment>
+        <div>No Winners Today, Try Again?</div>
         <button onClick={this.replay}>Play Again</button>
-      </div>
-    );
+      </Fragment>
+    )
   }
 }
 

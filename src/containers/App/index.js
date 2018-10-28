@@ -20,7 +20,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact={true} path='/' component={EnterForm} />
-            <Route path='/rooms' component={EnterForm} />
+            <Route exact={true} path='/rooms' component={EnterForm} />
             <Route path='/rooms/:id/images' component={GamePlay} />
             {/* <Route path='/rooms/:id/scores' component={RoundEnd} /> */}
             <Route path='/rooms/:id/results' component={GameWinner} />

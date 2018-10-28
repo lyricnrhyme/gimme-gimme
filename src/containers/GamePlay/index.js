@@ -16,7 +16,7 @@ class GamePlay extends Component {
       winner: null
     }
     this.socket = io();
-    
+
     this.socket.on('WINNER', username => {
       console.log(`${username} won this round!`)
       this.setState({
@@ -54,7 +54,7 @@ class GamePlay extends Component {
     })
   }
 
-  render() {    
+  render() {
     if (this.state.redirect) {
       return (
         <Redirect to={{
