@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './styles.css';
-import axios from 'axios';
 import io from 'socket.io-client';
 import { Redirect } from 'react-router-dom';
 import Prompt from '../../components/Prompt';
@@ -17,6 +16,7 @@ class GamePlay extends Component {
       winner: null
     }
     this.socket = io();
+    
     this.socket.on('WINNER', username => {
       console.log(`${username} won this round!`)
       this.setState({
@@ -31,6 +31,8 @@ class GamePlay extends Component {
           redirect: true
         })
       } else {
+        console.log('else tick', countdown);
+        
         this.setState({
           countdown: countdown
         })
@@ -46,28 +48,22 @@ class GamePlay extends Component {
 
   componentDidMount() {
     let roomID = this.props.match.params.id;
-    this.setState({ roomID: roomID })
+    this.setState({
+      roomID: roomID,
+    })
     this.socket.emit('START_GAME', {
       roomID: roomID,
     })
   }
 
-  tick() {
-    if (this.state.countdown === 0) {
-      this.setState({
-        redirect: true
-      })
-    }
-  }
-
-  render() {
-    if (this.state.redirect && this.state.winner) {
+  render() {    
+    if (this.state.redirect) {
       return (
         <Redirect to={{
           pathname: `/rooms/${this.state.roomID}/results`,
           state: {
             userName: this.props.location.state.userName,
-            winner: this.state.winner
+            winner: this.state.winner || ''
           }
         }} />
       )
@@ -81,7 +77,7 @@ class GamePlay extends Component {
               : null
           }
         </div>
-        <div className='CodeCounter'>
+        <div>
           {this.state.countdown}
         </div>
         {

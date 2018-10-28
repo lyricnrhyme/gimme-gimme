@@ -105,7 +105,7 @@ router.post('/:id/images', upload.single('photo'), (req, res) => {
   const roomID = req.params.id;
   const { prompt, player } = req.body;
   let params = { url }
-  console.log('test');
+  console.log('BUCKET_NAME', BUCKET_NAME);
   visualRecognition.classify(params, (err, response) => {
     if (err) console.log(err);
     else {
