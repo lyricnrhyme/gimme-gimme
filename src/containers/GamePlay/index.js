@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './styles.css';
-import axios from 'axios';
 import io from 'socket.io-client';
 import { Redirect } from 'react-router-dom';
 import Prompt from '../../components/Prompt';

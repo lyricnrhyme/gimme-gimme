@@ -21,7 +21,7 @@ class GameWinner extends Component {
     axios.get(`/api/rooms/${roomID}/results`)
       .then(response => {
         this.setState({
-          winner: response.data.winner.name,
+          winner: response.data.winner,
           winningPhoto: response.data.winningPhoto
         })
         if (response.data.players) {
@@ -43,11 +43,11 @@ class GameWinner extends Component {
     }
     return (
       <div className="GameWinner">
-        <div className="game-winner">Winner: {this.state.winner}!</div>
+        <div className="game-winner">Winner: {this.state.winner}</div>
         <div className="winning-photo">
           <img src={this.state.winningPhoto} alt="" />
         </div>
-        <button onClick={this.replay}>Replay</button>
+        <button onClick={this.replay}>Play Again</button>
       </div>
     );
   }
