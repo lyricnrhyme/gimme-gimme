@@ -3,9 +3,8 @@ import './styles.css';
 import axios from 'axios';
 import io from 'socket.io-client';
 import { Redirect } from 'react-router-dom';
-import Prompt from '../containers/Prompt';
-import Counter from './CounterComponent';
-import Camera from './CameraComponent';
+import Prompt from '../../components/Prompt';
+import Camera from '../Camera/CameraComponent';
 
 class GamePlay extends Component {
   constructor(props) {
@@ -39,11 +38,6 @@ class GamePlay extends Component {
       })
   }
 
-  // playerWonRound = () => {
-  //   console.log('someone won');
-  //   this.setState({ redirect: true })
-  // }
-
   render() {
     if (this.state.redirect && this.state.winner) {
       return (
@@ -64,7 +58,6 @@ class GamePlay extends Component {
               ? <Prompt prompt={this.state.prompt} />
               : null
           }
-          <Counter />
         </div>
         {
           this.state.roomID

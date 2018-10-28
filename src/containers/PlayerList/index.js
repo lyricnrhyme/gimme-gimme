@@ -3,7 +3,6 @@ import './styles.css';
 import axios from 'axios';
 import io from 'socket.io-client';
 import Player from '../../components/PlayerComponent';
-import Counter from '../../components/CounterComponent';
 import { Redirect } from 'react-router-dom';
 
 class PlayerList extends Component {
@@ -86,8 +85,6 @@ class PlayerList extends Component {
     return (
       <div className="PlayerList">
         <div className='CodeCounter'>
-          <h1>Put Code Here</h1>
-          {/* <Counter seconds={this.state.seconds}/> */}
           {this.state.countdown}
         </div>
         <div className="room-success">Success! Room ID:

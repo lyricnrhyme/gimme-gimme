@@ -4,7 +4,6 @@ import axios from 'axios';
 import io from 'socket.io-client';
 import { Redirect } from 'react-router-dom';
 import RoundWinner from '../../components/RoundWinnerComponent';
-import RoundCounter from '../../components/RoundCounterComponent';
 import ScoreBoard from '../../components/ScoreBoardComponent';
 
 class RoundEnd extends Component {
