@@ -48,12 +48,13 @@ class Camera extends Component {
             : null
         }
         <form>
-          <input
+          <input className="uploadFile"
             type='file'
             accept='image/*'
             capture
             onChange={this.handleCapture}
           />
+          <br/>
           <button onClick={this.submitPhoto}>Submit</button>
         </form>
       </div>
