@@ -42,7 +42,6 @@ const visualRecognition = new VisualRecognitionV3({
 /***       Room/Player Variables          ***/
 /*********************************************/
 let rooms = [];
-let sockets = [];
 let roomID = null;
 /*********************************************/
 /***       Room/Player Variables          ***/
@@ -112,7 +111,7 @@ router.post('/:id/images', upload.single('photo'), (req, res) => {
   const { prompt, player } = req.body;
   let params = { url }
   visualRecognition.classify(params, (err, response) => {
-    if (err) reject(err);
+    if (err) console.log(err);
     else {
       let classifications = Object.values(response.images[0].classifiers[0].classes);
       classifications.map(result => {
@@ -136,32 +135,34 @@ router.post('/:id/images', upload.single('photo'), (req, res) => {
 
 router.get('/:id/scores', (req, res) => {
   const roomID = req.params.id;
+  let roomIncrement;
   rooms.map(room => {
     if (room.roomID === roomID) {
       if (room.round < 2) {
         room.round += 1;
-        res.json({
-          winningPhoto: room.winningPhoto,
-          players: room.players,
-          redirect: true,
-          round: room.round
-        });
-      } else {
-        let winner = null;
-        room.players.map(player => {
-          if (!winner) {
-            winner = player;
-          } else if (winner.score < player.score) {
-            winner = player
-          }
-          res.json({
-            winner,
-            winningPhoto: room.winningPhoto,
-            players: room.players.filter(player => player.name !== winner.name),
-            redirect: true
-          })
-        })
       }
+      res.json({
+        winningPhoto: room.winningPhoto,
+        players: room.players,
+        redirect: true,
+        round: room.round
+      });
+    } else {
+      // let winner = null;
+      // room.players.map(player => {
+      //   if (!winner) {
+      //     winner = player;
+      //   } else if (winner.score < player.score) {
+      //     winner = player
+      //   }
+      //   res.json({
+      //     winner,
+      //     winningPhoto: room.winningPhoto,
+      //     players: room.players.filter(player => player.name !== winner.name),
+      //     redirect: true
+      //   })
+      // })
+      res.json({ redirect: null })
     }
   })
 })

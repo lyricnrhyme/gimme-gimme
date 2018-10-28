@@ -46,6 +46,12 @@ class GamePlay extends Component {
         })
       }
     })
+
+    this.socket.on('PROMPT', prompt => {
+      this.setState({
+        prompt: prompt
+      })
+    })
   }
 
   componentDidMount() {
@@ -54,10 +60,10 @@ class GamePlay extends Component {
     this.socket.emit('START_GAME', {
       roomID: roomID,
     })
-    axios.get(`/api/rooms/${roomID}/images`)
-      .then(response => {
-        this.setState({ prompt: response.data })
-      })
+    // axios.get(`/api/rooms/${roomID}/images`)
+    //   .then(response => {
+    //     this.setState({ prompt: response.data })
+    //   })
   }
 
   tick() {
