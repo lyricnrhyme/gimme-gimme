@@ -52,7 +52,7 @@
     100% {
       top: -10px;
       text-shadow: 
-        0 5px 0 grey;
+        0 10px 0 rgba(0,0,0,0.2);
     } 
   }
 
