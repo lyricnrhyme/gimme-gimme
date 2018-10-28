@@ -1,4 +1,10 @@
 /*Enter Form Page*/
+@media only screen and (min-width: 451px) {
+  .EnterForm {
+    display: none;
+  }
+}
+
 .EnterForm {
  background: transparent;
   height: 87vh;
@@ -9,6 +15,9 @@
   /* animation-iteration-count: 1; */
   animation-delay: 1s;
   font-family: 'Varela Round', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .EnterForm form {
@@ -20,15 +29,16 @@
   justify-content: center;
 }
 
-.joinForm {
-  margin-top: -50%;
+#joinForm {
+  margin-top: -215px;
+  text-align: center;
 }
 
 /*End Enter Form Page*/
 
 .EnterForm form label {
   font-size: 18px;
-  margin: 10px;
+  margin: 6px;
 }
 
 .EnterForm form input {
@@ -36,7 +46,7 @@
   height: 33px;
   /* padding: 5px; */
   font-size: 14px;
-  margin: 10px;
+  margin: 6px;
   color: grey;
   border: none;
   background: white;
@@ -66,6 +76,15 @@
 
 .error-message {
   color: red;
+}
+
+#vote-moar {
+  width: 200px;
+  margin: 0 auto;
+  margin-top: 25px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 @keyframes fadein {  
