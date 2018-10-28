@@ -10,7 +10,7 @@ function createRoom() {
 }
 
 function generatePrompt() {
-  let prompts = ['red', 'blue', 'green', 'yellow', 'bottle', 'shoe', 'dog', 'cat', 'person', 'lipstick', 'phone', 'pen', 'chair', 'table', 'fruit', 'pen', 'plant', 'computer', 'book']
+  let prompts = ['red', 'blue', 'green', 'yellow', 'bottle', 'shoe', 'dog', 'cat', 'person', 'lipstick', 'phone', 'pen', 'chair', 'table', 'fruit', 'pen', 'plant', 'book', 'ball', 'cup', 'key', 'wallet', 'food', 'door', 'belt', 'ring', 'purple', 'brown', 'black', 'white', 'pink', 'money', 'hat', 'shirt', 'pants', 'socks', 'glasses', 'bag', 'purse', 'tree', 'bush', 'flower', 'clock', 'watch', 'orange', 'grey']
   // let prompts = ['dog']
   return prompts[Math.floor(Math.random() * prompts.length)];
 }
