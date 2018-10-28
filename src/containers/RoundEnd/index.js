@@ -88,18 +88,22 @@ class RoundEnd extends Component {
     // }
     return (
       <div className="RoundEnd">
+        <div className="round-winner">  
         <RoundWinner
           userName={this.props.location.state.winner}
           photo={this.state.photo}
-        />
+          />
+        </div>  
         <div className='CodeCounter'>
           {this.state.countdown}
         </div>
+        <div className="score-board">
         {
           this.state.players
             ? <ScoreBoard players={this.state.players} />
             : null
-        }
+          }
+        </div>  
       </div >
     );
   }
