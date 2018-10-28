@@ -13,8 +13,11 @@
  box-shadow: 2px 2px rgba(0,0,0,0.2);  
  padding: 10% 5% 10% 5%; 
  font-size: 14px;
-
 }
+
+/* .uploadFile input[type=file] {
+
+} */
 
 button {
     margin-top: 10%;

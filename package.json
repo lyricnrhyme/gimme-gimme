@@ -36,7 +36,7 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "homepage": "https://quiet-ocean-40272.herokuapp.com/",
+  "homepage": "https://gimmemoar.herokuapp.com/",
   "proxy": "http://localhost:8989",
   "engines": {
     "node": "10.0.0"

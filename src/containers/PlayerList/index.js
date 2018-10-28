@@ -85,9 +85,9 @@ class PlayerList extends Component {
     }
     return (
       <div className="PlayerList">
-        <div className="loader" id="loader1"></div>
+        {/* <div className="loader" id="loader1"></div>
         <div className="loader" id="loader2"></div>
-        <div className="loader" id="loader3"></div>
+        <div className="loader" id="loader3"></div> */}
 
 
         <div className='CodeCounter'>
