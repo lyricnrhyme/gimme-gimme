@@ -23,7 +23,8 @@
   #Rules {
     width: 90%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    margin-bottom: 10px;
   }
 
   h1 span {
