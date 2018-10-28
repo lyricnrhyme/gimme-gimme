@@ -10,7 +10,7 @@ class PlayerList extends Component {
     super(props)
     this.state = {
       timer: null,
-      count: 60,
+      count: null,
       redirect: false,
       players: []
     }
@@ -84,9 +84,7 @@ class PlayerList extends Component {
     return (
       <div className="PlayerList">
         <div className='CodeCounter'>
-          <h1>Put Code Here</h1>
-          {/* <Counter seconds={this.state.seconds}/> */}
-          {this.state.count}
+          <h1>{this.state.count}</h1>
         </div>
         <div className="room-success">Success! Room ID:
           <span>{this.props.match.params.id}</span>

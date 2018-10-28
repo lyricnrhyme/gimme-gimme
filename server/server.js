@@ -21,7 +21,7 @@ const app = server.listen(PORT, () => {
 const io = socket(app);
 
 io.on('connection', socket => {  
-  socket.on('CREATE', data => {    
+  socket.on('CREATE', data => {
     socket.join(data.roomID);
   })
 
