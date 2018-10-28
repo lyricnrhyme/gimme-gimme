@@ -10,14 +10,23 @@ class RoundEnd extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      timer: null,
       redirect: false,
+      countdown: null,
       roomID: null,
       players: [],
       photo: null,
     }
-    io().on('MOVE_TO_NEXT_ROUND', data => {
-      this.setState({ redirect: true })
+    this.socket = io();
+    this.socket.on('TICK', countdown => {
+      if (countdown === 0) {
+        this.setState({
+          redirect: true
+        })
+      } else {
+        this.setState({
+          countdown: countdown
+        })
+      }
     })
   }
 
@@ -28,10 +37,19 @@ class RoundEnd extends Component {
       .then(response => {
         this.setState({ players: response.data.players })
         this.setState({ photo: response.data.winningPhoto })
-        if (response.data.redirect) {
-          io().emit('REDIRECT')
-        }
+        io().emit('END_ROUND', { roomID: roomID });
+        // if (response.data.redirect) {
+        //   io().emit('REDIRECT')
+        // }
       })
+  }
+
+  tick() {
+    if (this.state.countdown === 0) {
+      this.setState({
+        redirect: true
+      })
+    }
   }
 
   render() {
@@ -51,6 +69,9 @@ class RoundEnd extends Component {
           userName={this.props.location.state.winner}
           photo={this.state.photo}
         />
+        <div className='CodeCounter'>
+          {this.state.countdown}
+        </div>
         {
           this.state.players
             ? <ScoreBoard players={this.state.players} />

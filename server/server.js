@@ -28,14 +28,14 @@ const io = socket(app);
 io.on('connection', socket => {
   socket.on('CREATE', data => {
     socket.join(data.roomID);
-
-    let countdown = 60;
+    console.log('create', socket.rooms);
+    let countdown = 10;
 
     const timer = setInterval(() => {
       io.to(data.roomID).emit('TICK', countdown)
       countdown--;
 
-      if (countdown === -1) {        
+      if (countdown === -1) {
         clearInterval(timer);
       }
     }, 1000)
@@ -47,12 +47,33 @@ io.on('connection', socket => {
   })
 
   socket.on('START_GAME', startData => {
-    // console.log('start game');
+    let countdown = 30;
+    console.log('start ', socket.rooms);
+    const timer = setInterval(() => {
+      io.to(startData.roomID).emit('TICK', countdown)
+      countdown--;
+      if (countdown === -1) {
+        clearInterval(timer);
+      }
+    }, 1000)
   });
 
   socket.on('WIN_ROUND', data => {
     io.emit('WINNER', data.userName);
   });
+
+  socket.on('END_ROUND', data => {
+    let countdown = 15;
+
+    const timer = setInterval(() => {
+      io.to(data.roomID).emit('TICK', countdown)
+      countdown--;
+
+      if (countdown === -1) {
+        clearInterval(timer);
+      }
+    }, 1000)
+  })
 
   socket.on('REDIRECT', () => {
     io.emit('MOVE_TO_NEXT_ROUND', { redirect: true })
