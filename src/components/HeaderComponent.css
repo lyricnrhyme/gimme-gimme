@@ -1,3 +1,9 @@
+@media only screen and (min-width: 451px) {
+  .Header {
+    display: none;
+  }
+}
+
 .Header {
     /* background-color: rgb(35, 150, 35); */
     /* color: white; */

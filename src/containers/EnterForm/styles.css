@@ -1,4 +1,10 @@
 /*Enter Form Page*/
+@media only screen and (min-width: 451px) {
+  .EnterForm {
+    display: none;
+  }
+}
+
 .EnterForm {
  background: transparent;
   height: 87vh;
@@ -70,6 +76,15 @@
 
 .error-message {
   color: red;
+}
+
+#vote-moar {
+  width: 200px;
+  margin: 0 auto;
+  margin-top: 25px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 @keyframes fadein {  

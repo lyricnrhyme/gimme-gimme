@@ -76,6 +76,9 @@ class EnterForm extends Component {
     } else {
       return (
         <div className="EnterForm">
+          <div id="vote-moar">
+            <a href="https://www.nodeknockout.com/entries/113-gimme-moar/vote" target="_blank" rel="noopener noreferrer">Vote for us!</a>
+          </div>
           <form onSubmit={this.createRoom}>
             <label>To Create Room, Enter Name:</label>
             <input
