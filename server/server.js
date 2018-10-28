@@ -49,7 +49,7 @@ io.on('connection', socket => {
 
   socket.on('START_GAME', startData => {
     // console.log('START', startData);
-    
+
     socket.join(startData.roomID)
     io.to(startData.roomID).emit('PROMPT', generatePrompt())
     let countdown = 30;
@@ -81,7 +81,7 @@ io.on('connection', socket => {
   });
 
   socket.on('END_ROUND', data => {
-    socket.disconnect();
+    socket.disconnect(true);
     // let countdown = 15;
 
     // const timer = setInterval(() => {
@@ -92,7 +92,7 @@ io.on('connection', socket => {
     //     clearInterval(timer);
     //   }
     // }, 1000)
-  })
+  });
 
   socket.on('REDIRECT', () => {
     io.emit('MOVE_TO_NEXT_ROUND', { redirect: true })
