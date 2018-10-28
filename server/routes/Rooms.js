@@ -49,7 +49,7 @@ let roomID = null;
 
 router.route('/')
   .get((req, res) => {
-    return res.json('GET Rooms');
+    return res.json({ message: 'GET Rooms' });
   })
   .post((req, res) => {
     const { playerName } = req.body;
@@ -72,8 +72,9 @@ router.route('/')
 
 router.route('/:id')
   .get((req, res) => {
+    const roomID = req.params.id;
     rooms.map(room => {
-      if (room.roomID === req.params.id) {
+      if (room.roomID === roomID) {
         return res.json({
           players: room.players
         });
@@ -81,11 +82,11 @@ router.route('/:id')
     })
   })
   .post((req, res) => {
-    const id = req.params.id;
+    const roomID = req.params.id;
     const { playerName } = req.body;
 
     rooms.map(room => {
-      if (room.roomID === id) {
+      if (room.roomID === roomID) {
         room.players.push({
           name: playerName,
           score: 0

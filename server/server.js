@@ -30,7 +30,6 @@ const io = socket(app);
 io.on('connection', socket => {
   socket.on('CREATE', data => {
     socket.join(data.roomID);
-    console.log('create', socket.rooms);
     let countdown = 10;
 
     const timer = setInterval(() => {
