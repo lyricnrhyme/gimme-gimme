@@ -31,11 +31,11 @@ io.on('connection', socket => {
   })
 
   socket.on('START_GAME', startData => {
-    console.log('start game');
+    // console.log('start game');
   });
 
   socket.on('WIN_ROUND', data => {
-    console.log(data);
+    // console.log(data);
     io.emit('WINNER', data.userName);
   });
 

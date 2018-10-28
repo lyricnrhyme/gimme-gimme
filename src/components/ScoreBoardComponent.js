@@ -1,16 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Player from './PlayerComponent';
 import './styles.css';
 
-class ScoreBoard extends Component {
-  render() {
-    return (
-      <div className="ScoreBoard">
-        1. Lorem
-        <br/>
-        2. Ipsum
-      </div>
-    );
-  }
+function ScoreBoard(props) {
+  return (
+    props.players.map(player => {
+      return (
+        <Player player={player} />
+      )
+    })
+  )
 }
 
 export default ScoreBoard;

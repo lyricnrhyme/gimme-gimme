@@ -26,6 +26,7 @@ class Camera extends Component {
       const form = new FormData();
       form.append('photo', this.state.photo);
       form.append('prompt', this.props.prompt);
+      form.append('player', this.props.user)
 
       axios.post(`/api/rooms/${this.props.roomId}/images`, form)
         .then(response => {
@@ -36,9 +37,9 @@ class Camera extends Component {
             })
           }
         })
-        // .then(() => {
-        //   this.props.roundWin()
-        // })
+      // .then(() => {
+      //   this.props.roundWin()
+      // })
     }
   }
 

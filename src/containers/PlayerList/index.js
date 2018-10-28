@@ -11,7 +11,7 @@ class PlayerList extends Component {
     super(props)
     this.state = {
       timer: null,
-      count: 10,
+      count: 3,
       redirect: false,
       players: []
     }
@@ -48,7 +48,11 @@ class PlayerList extends Component {
 
     axios.get(`/api/rooms/${roomID}`)
       .then(response => {
-        this.setState({ players: response.data.players })
+        console.log(response.data.players)
+        response.data.players.map(player => {
+          this.setState({ players: [...this.state.players, player.name] })
+        })
+        // this.setState({ players: response.data.players })
       })
   }
 
