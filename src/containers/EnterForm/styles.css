@@ -1,4 +1,10 @@
 /*Enter Form Page*/
+@media only screen and (min-width: 451px) {
+  .EnterForm {
+    display: none;
+  }
+}
+
 .EnterForm {
  background: transparent;
   height: 87vh;

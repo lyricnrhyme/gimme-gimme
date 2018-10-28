@@ -18,8 +18,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Overlay />
         <Header />
+        <Overlay />
         <Router>
           <Switch>
             <Route exact={true} path='/' component={EnterForm} />
