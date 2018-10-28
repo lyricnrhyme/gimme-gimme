@@ -28,6 +28,17 @@ const io = socket(app);
 io.on('connection', socket => {  
   socket.on('CREATE', data => {    
     socket.join(data.roomID);
+
+    let countdown = 60;
+
+    const timer = setInterval(() => {
+      io.to(data.roomID).emit('TICK', countdown)
+      countdown--;
+
+      if (countdown === -1) {        
+        clearInterval(timer);
+      }
+    }, 1000)
   })
 
   socket.on('JOIN', data => {

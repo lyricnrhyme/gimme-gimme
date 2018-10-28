@@ -11,12 +11,11 @@ class PlayerList extends Component {
     super(props)
     this.state = {
       timer: null,
-      count: 60,
+      countdown: null,
       redirect: false,
       players: []
     }
-    this.tick = this.tick.bind(this);
-    this.stopTimer = this.stopTimer.bind(this);
+
     this.socket = io();
     this.socket.on('JOINED', userName => {
       console.log(`${userName} has joined!`);
@@ -26,13 +25,22 @@ class PlayerList extends Component {
         })
       }
     })
+
+    this.socket.on('TICK', countdown => {
+      if (countdown === 0) {
+        this.setState({
+          redirect: true
+        })
+      } else {
+        this.setState({
+          countdown: countdown
+        })
+      }
+    })
   }
 
   componentDidMount() {
-    let timer = setInterval(this.tick, 1000);
     let roomID = this.props.match.params.id;
-
-    this.setState({ timer });
 
     if (this.props.location.state.roomCreated) {
       this.socket.emit('CREATE', {
@@ -52,29 +60,12 @@ class PlayerList extends Component {
       })
   }
 
-  componentWillUnmount() {
-    clearInterval(this.state.timer);
-  }
-
   tick() {
     if (this.state.count === 0) {
-      this.setState({
-        timer: null
-      })
-      this.stopTimer();
       this.setState({
         redirect: true
       })
     }
-    this.setState({
-      count: this.state.count - 1
-    })
-    // console.log('count', this.state.count)
-  }
-
-  stopTimer() {
-    let timer = clearInterval(this.state.timer);
-    this.setState({ timer })
   }
 
   render() {
@@ -88,7 +79,7 @@ class PlayerList extends Component {
         <div className='CodeCounter'>
           <h1>Put Code Here</h1>
           {/* <Counter seconds={this.state.seconds}/> */}
-          {this.state.count}
+          {this.state.countdown}
         </div>
         <div className="room-success">Success! Room ID:
           <span>{this.props.match.params.id}</span>
