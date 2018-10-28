@@ -4,15 +4,20 @@ const server = express();
 const bodyParser = require('body-parser');
 const socket = require('socket.io');
 const cors = require('cors');
+const path = require('path');
 const routes = require('./routes');
 
-const PORT = process.env.EXPRESS_CONTAINER_PORT || 8989;
+const PORT = process.env.PORT || process.env.EXPRESS_CONTAINER_PORT || 8989;
 
+server.use(express.static(path.join(__dirname, '..', 'build')));
 server.use(cors());
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }))
 
 server.use('/api', routes);
+server.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+});
 
 const app = server.listen(PORT, () => {
   console.log(`Server started on port: ${PORT}`)
