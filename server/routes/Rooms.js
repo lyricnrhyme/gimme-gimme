@@ -61,7 +61,8 @@ router.route('/')
         name: playerName,
         score: 0
       }],
-      round: 1
+      round: 1,
+      winningPhoto: ''
     })
 
     return res.json({
@@ -120,6 +121,7 @@ router.post('/:id/images', upload.single('photo'), (req, res) => {
         if (result.class === prompt && result.score > 0.5) {
           rooms.map(room => {
             if (room.roomID === roomID) {
+              room.winningPhoto = url;
               room.players.map(participants => {
                 if (participants.name === player) {
                   participants.score += 1;
@@ -140,10 +142,14 @@ router.get('/:id/scores', (req, res) => {
     if (room.roomID === roomID) {
       room.round += 1;
       if (room.round < 5) {
-        res.json(room.players);
+        res.json({
+          winningPhoto: room.winningPhoto,
+          players: room.players,
+          redirect: true,
+        });
       } else {
         res.json({
-          redirect: true,
+          winningPhoto: room.winningPhoto,
           players: room.players
         })
       }

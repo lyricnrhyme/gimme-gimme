@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './styles.css';
 import axios from 'axios';
-
+import io from 'socket.io-client';
+import { Redirect } from 'react-router-dom';
 import RoundWinner from '../../components/RoundWinnerComponent';
 import RoundCounter from '../../components/RoundCounterComponent';
 import ScoreBoard from '../../components/ScoreBoardComponent';
@@ -11,50 +12,46 @@ class RoundEnd extends Component {
     super(props)
     this.state = {
       timer: null,
-      count: 10,
       redirect: false,
-      players: []
+      roomID: null,
+      players: [],
+      photo: null,
     }
-    // this.tick = this.tick.bind(this);
+    io().on('MOVE_TO_NEXT_ROUND', data => {
+      this.setState({ redirect: true })
+    })
   }
 
   componentDidMount() {
     const roomID = this.props.match.params.id;
-    // let timer;
-    // if (this.state.count !== 0) {
-    //   let timer = setTimeout(this.tick, 1000);
-    //   this.setState({timer});
-    // } else {
-    //   timer = clearInterval(this.tick);
-    //   this.setState({timer});
-    // }
+    this.setState({ roomID: roomID })
     axios.get(`/api/rooms/${roomID}/scores`)
       .then(response => {
-        this.setState({ players: response.data })
+        this.setState({ players: response.data.players })
+        this.setState({ photo: response.data.winningPhoto })
+        if (response.data.redirect) {
+          io().emit('REDIRECT')
+        }
       })
   }
 
-  // componentWillUnmount() {
-  //   clearInterval(this.state.timer);
-  // }
-
-  // stopTimer() {
-  //   let timer = clearInterval(this.state.timer);
-  //   this.setState({timer})
-  // }
-
-  // tick() {
-  //   this.setState({
-  //     count: this.state.count - 1
-  //   })
-  // }
-
-
   render() {
+    if (this.state.redirect && this.props.location.state) {
+      return (
+        <Redirect to={{
+          pathname: `/rooms/${this.state.roomID}/images`,
+          state: {
+            userName: this.props.location.state.userName
+          }
+        }} />
+      )
+    }
     return (
       <div className="RoundEnd">
-        <RoundWinner userName={this.props.location.state.winner} />
-        {this.state.count}
+        <RoundWinner
+          userName={this.props.location.state.winner}
+          photo={this.state.photo}
+        />
         {
           this.state.players
             ? <ScoreBoard players={this.state.players} />

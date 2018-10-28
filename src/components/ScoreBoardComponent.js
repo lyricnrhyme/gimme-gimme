@@ -4,9 +4,9 @@ import './styles.css';
 
 function ScoreBoard(props) {
   return (
-    props.players.map(player => {
+    props.players.map((player, idx) => {
       return (
-        <Player player={player} />
+        <Player player={player} key={idx} />
       )
     })
   )
