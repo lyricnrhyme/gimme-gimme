@@ -9,7 +9,8 @@ class Camera extends Component {
     this.state = {
       photo: null,
       badImage: false,
-      isDisabled: false
+      isDisabled: false,
+      submitted: false
     }
   }
 
@@ -20,6 +21,10 @@ class Camera extends Component {
 
   submitPhoto = e => {
     e.preventDefault();
+    this.setState({
+      submitted: true
+    })
+
     if (this.state.photo) {
       const form = new FormData();
       form.append('photo', this.state.photo);
@@ -34,7 +39,11 @@ class Camera extends Component {
               userName: this.props.user
             })
           } else {
-            this.setState({ badImage: true, isDisabled: true });
+            this.setState({
+              submitted: false,
+              badImage: true,
+              isDisabled: true
+            })
           }
         })
     }
@@ -46,6 +55,11 @@ class Camera extends Component {
         {
           this.state.badImage
             ? <span>Not what I wanted! Show me something else!</span>
+            : null
+        }
+        {
+          this.state.submitted
+            ? <span>Processing your image...</span>
             : null
         }
         <form>
