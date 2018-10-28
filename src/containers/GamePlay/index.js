@@ -36,6 +36,12 @@ class GamePlay extends Component {
         })
       }
     })
+
+    this.socket.on('PROMPT', prompt => {
+      this.setState({
+        prompt: prompt
+      })
+    })
   }
 
   componentDidMount() {
@@ -44,10 +50,6 @@ class GamePlay extends Component {
     this.socket.emit('START_GAME', {
       roomID: roomID,
     })
-    axios.get(`/api/rooms/${roomID}/images`)
-      .then(response => {
-        this.setState({ prompt: response.data })
-      })
   }
 
   tick() {
@@ -62,7 +64,7 @@ class GamePlay extends Component {
     if (this.state.redirect && this.state.winner) {
       return (
         <Redirect to={{
-          pathname: `/rooms/${this.state.roomID}/scores`,
+          pathname: `/rooms/${this.state.roomID}/results`,
           state: {
             userName: this.props.location.state.userName,
             winner: this.state.winner
