@@ -41,7 +41,6 @@ class Camera extends Component {
   }
 
   render() {
-    console.log('isDisabled', this.state.isDisabled);
     return (
       <div className="Camera">
         {
