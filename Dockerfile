@@ -17,4 +17,4 @@ RUN npm install
 COPY . .
 
 # Start the node application as you normally would
-CMD ["nodemon", "server.js"]
+CMD ["node", "server.js"]
