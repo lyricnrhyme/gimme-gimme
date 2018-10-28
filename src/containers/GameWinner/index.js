@@ -63,8 +63,10 @@ class GameWinner extends Component {
     }
     return (
       <Fragment>
-        <div className="no-winner">No Winners Today, Try Again?</div>
-        <button onClick={this.replay}>Play Again</button>
+        <div id="no-winner-container">
+          <div className="no-winner">No Winners Today, Try Again?</div>
+          <button onClick={this.replay}>Play Again</button>
+        </div>  
       </Fragment>
     )
   }

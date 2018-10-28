@@ -87,24 +87,26 @@ router.route('/:id')
     if (!rooms.length) {
       return res.json({ message: `Room doesn't exist!` })
     }
-    rooms.map(room => {
-      if (room.roomID === roomID) {
-        let nameCheck = room.players.some(player => player.name === playerName)
-        if (nameCheck) {
-          room.players.push({
-            name: playerName,
-            score: 0
-          });
-          return res.json({
-            roomID: room.roomID
-          })
-        } else {
-          return res.json({ message: `Player name taken in this room!` })
+    else {
+      rooms.map(room => {
+        if (room.roomID === roomID) {
+          let nameCheck = room.players.some(player => player.name === playerName)
+          // if (nameCheck) {
+            room.players.push({
+              name: playerName,
+              score: 0
+            });
+            return res.json({
+              roomID: room.roomID
+            })
+        //   } else {
+        //     return res.json({ message: `Player name taken in this room!` })
+        //   }
+        // } else {
+        //   return res.json({ message: `Room doesn't exist!` })
         }
-      } else {
-        return res.json({ message: `Room doesn't exist!` })
-      }
-    })
+      })
+    }  
   });
 
 router.post('/:id/images', upload.single('photo'), (req, res) => {
