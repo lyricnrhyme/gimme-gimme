@@ -54,12 +54,12 @@ class Camera extends Component {
       <div className="Camera">
         {
           this.state.badImage
-            ? <span>Not what I wanted! Show me something else!</span>
+            ? <span id="camera-message">Not what I wanted! Show me something else!</span>
             : null
         }
         {
           this.state.submitted
-            ? <span>Processing your image...</span>
+            ? <span id="camera-message">Processing your image...</span>
             : null
         }
         <form>
