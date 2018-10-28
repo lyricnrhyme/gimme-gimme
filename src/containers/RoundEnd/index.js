@@ -2,68 +2,45 @@ import React, { Component } from 'react';
 import './styles.css';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import io from 'socket.io-client';
 
 import RoundWinner from '../../components/RoundWinnerComponent';
 import RoundCounter from '../../components/RoundCounterComponent';
 import ScoreBoard from '../../components/ScoreBoardComponent';
+import Counter from '../../components/CounterComponent';
 
 class RoundEnd extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      timer: null,
-      count: 15,
       redirect: false
     }
-    this.tick = this.tick.bind(this);
-    this.stopTimer = this.stopTimer.bind(this);
-  }
-
-  componentDidMount() {
-    let timer = setInterval(this.tick, 1000);
-    this.setState({ timer });
+    this.socket = io();
+    this.socket.on('ROUND_END', countdown => {
+      if (countdown === 0) {
+        this.setState({
+          redirect: true
+        })
+      } else {
+        this.setState({
+          countdown: countdown
+        })
+      }
+    })
   }
 
   componentDidMount() {
     const roomID = this.props.match.params.id;
-    // let timer;
-    // if (this.state.count !== 0) {
-    //   let timer = setTimeout(this.tick, 1000);
-    //   this.setState({timer});
-    // } else {
-    //   timer = clearInterval(this.tick);
-    //   this.setState({timer});
-    // }
+    this.setState({ roomID: roomID })
+    this.socket.emit('WIN_ROUND', {
+      roomID: roomID
+    })
     axios.get(`/api/rooms/${roomID}/scores`)
       .then(response => {
         this.setState({ players: response.data })
       })
+      console.log('???', this.state.countdown)
   }
-
-  // componentWillUnmount() {
-  //   clearInterval(this.state.timer);
-  // }
-
-  tick() {
-    if (this.state.count === 0) {
-      this.setState({
-        timer: null
-      })
-      this.stopTimer();
-      this.setState({
-        redirect: true
-      })
-    }
-    this.setState({
-      count: this.state.count - 1
-    })
-  }
-
-  stopTimer() {
-    let timer = clearInterval(this.state.timer);
-    this.setState({timer})
-  }
-
 
   render() {
     if (this.state.redirect) {
@@ -74,7 +51,7 @@ class RoundEnd extends Component {
     return (
       <div className="RoundEnd">
         <RoundWinner userName={this.props.location.state.winner} />
-        {this.state.count}
+        {this.state.countdown}
         {
           this.state.players
             ? <ScoreBoard players={this.state.players} />

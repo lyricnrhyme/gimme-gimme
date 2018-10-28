@@ -25,6 +25,18 @@ class GamePlay extends Component {
     this.socket.on('MOVE_TO_NEXT_ROUND', data => {
       this.setState({ redirect: data.redirect })
     })
+
+    this.socket.on('TICK', countdown => {
+      if (countdown === 0) {
+        this.setState({
+          redirect: true
+        })
+      } else {
+        this.setState({
+          countdown: countdown
+        })
+      }
+    })
   }
 
   componentDidMount() {
@@ -64,7 +76,6 @@ class GamePlay extends Component {
               ? <Prompt prompt={this.state.prompt} />
               : null
           }
-          <Counter />
         </div>
         {
           this.state.roomID

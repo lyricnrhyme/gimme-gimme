@@ -63,25 +63,6 @@ class PlayerList extends Component {
       })
   }
 
-  tick() {
-    if (this.state.count === 0) {
-      this.setState({
-        redirect: true
-      })
-    }
-<<<<<<< HEAD
-    this.setState({
-      count: this.state.count - 1
-    })
-  }
-
-  stopTimer() {
-    let timer = clearInterval(this.state.timer);
-    this.setState({ timer })
-=======
->>>>>>> development
-  }
-
   render() {
     if (this.state.redirect) {
       return (
@@ -96,13 +77,8 @@ class PlayerList extends Component {
     return (
       <div className="PlayerList">
         <div className='CodeCounter'>
-<<<<<<< HEAD
-          <h1>{this.state.count}</h1>
-=======
           <h1>Put Code Here</h1>
-          {/* <Counter seconds={this.state.seconds}/> */}
           {this.state.countdown}
->>>>>>> development
         </div>
         <div className="room-success">Success! Room ID:
           <span>{this.props.match.params.id}</span>
