@@ -8,12 +8,11 @@ import PlayerList from '../PlayerList';
 import GamePlay from '../GamePlay';
 import RoundEnd from '../RoundEnd';
 
-
 // components
 import Header from '../../components/HeaderComponent';
 import GameWinner from '../GameWinner';
+import SoloMode from '../../components/SoloModeComponent';
 class App extends Component {
-
   render() {
     return (
       <div className="App">
@@ -21,6 +20,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact={true} path='/' component={EnterForm} />
+            <Route path='/solo' component={SoloMode} />
             <Route path='/rooms/:id/images' component={GamePlay} />
             <Route path='/rooms/:id/scores' component={RoundEnd} />
             <Route path='/rooms/:id/results' component={GameWinner} />

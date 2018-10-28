@@ -33,3 +33,28 @@ img{
 @keyframes spin {
   100% {transform: rotate(360deg)}
 }  */
+
+.Sorry {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding: 3%;
+  text-align: center;
+  font-size: 23px;
+  font-family: 'Varela Round', sans-serif;
+  background-color: rgb(139, 213, 231);
+  border: 3px outset;
+  border-radius: 10px;
+  color: white;
+  width: 80%;
+  animation: fadein 3s forwards;
+  /* animation-iteration-count: 1; */
+  animation-delay: 1s;
+  opacity: 0;
+}
+
+@keyframes fadein {  
+  from {opacity: 0}
+  to {opacity: 1}
+}

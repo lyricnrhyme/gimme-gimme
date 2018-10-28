@@ -72,7 +72,7 @@ class PlayerList extends Component {
   }
 
   render() {
-    if (this.state.redirect) {
+    if (this.state.redirect && this.state.players.length > 1) {
       return (
         <Redirect to={{
           pathname: `/rooms/${this.props.match.params.id}/images`,
@@ -81,30 +81,37 @@ class PlayerList extends Component {
           }
         }} />
       )
+    } else if (this.state.redirect) {
+      return (
+        <Redirect to={{
+          pathname: '/solo'
+        }} />
+      )
+    } else {
+      return (
+        <div className="PlayerList">
+          <div className='CodeCounter'>
+            {this.state.countdown}
+          </div>
+          <div className="room-success">Success! Room ID:
+            <span>{this.props.match.params.id}</span>
+          </div>
+          <div className="player-name-list">Players Joined:</div>
+          <ul>
+            {this.state.players
+              ? this.state.players.map((player, idx) => {
+                return (
+                  <li key={idx}>
+                    <Player player={player} />
+                  </li>
+                )
+              })
+              : null
+            }
+          </ul>
+        </div>
+      );
     }
-    return (
-      <div className="PlayerList">
-        <div className='CodeCounter'>
-          {this.state.countdown}
-        </div>
-        <div className="room-success">Success! Room ID:
-          <span>{this.props.match.params.id}</span>
-        </div>
-        <div className="player-name-list">Players Joined:</div>
-        <ul>
-          {this.state.players
-            ? this.state.players.map((player, idx) => {
-              return (
-                <li key={idx}>
-                  <Player player={player} />
-                </li>
-              )
-            })
-            : null
-          }
-        </ul>
-      </div>
-    );
   }
 }
 
