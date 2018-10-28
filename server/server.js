@@ -65,6 +65,7 @@ io.on('connection', socket => {
   socket.on('WIN_ROUND', data => {
     socket.join(data.roomID)
     let countdown = 15;
+    io.to(data.roomID).emit('REDIRECT', data.userName)
 
     const timer = setInterval(() => {
       io.to(data.roomID).emit('ROUND_END', countdown)
@@ -76,6 +77,10 @@ io.on('connection', socket => {
     }, 1000)
     io.emit('WINNER', data.userName);
   });
+
+  socket.on('FINAL_REDIRECT', data => {
+    io.to(data.roomID).emit('TO_RESULTS', { finalRedirect: true })
+  })
 
   socket.on('END_ROUND', data => {
     socket.disconnect(true);

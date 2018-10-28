@@ -16,7 +16,7 @@ class Camera extends Component {
 
   handleCapture = e => {
     const file = e.target.files[0];
-    this.setState({ photo: file , isDisabled: false, badImage:false})
+    this.setState({ photo: file, isDisabled: false, badImage: false })
   }
 
   submitPhoto = e => {
@@ -33,7 +33,9 @@ class Camera extends Component {
 
       axios.post(`/api/rooms/${this.props.roomId}/images`, form)
         .then(response => {
-          if (response.data.success) {
+          if (response.data.finalRedirect) {
+            io().emit('FINAL_REDIRECT', { roomID: this.props.roomId });
+          } else if (response.data.success) {
             io().emit('WIN_ROUND', {
               roomID: this.props.roomId,
               userName: this.props.user
@@ -54,12 +56,12 @@ class Camera extends Component {
       <div className="Camera">
         {
           this.state.badImage
-            ? <span>Not what I wanted! Show me something else!</span>
+            ? <span id="camera-message">Not what I wanted! Show me something else!</span>
             : null
         }
         {
           this.state.submitted
-            ? <span>Processing your image...</span>
+            ? <span id="camera-message">Processing your image...</span>
             : null
         }
         <form>
@@ -69,7 +71,7 @@ class Camera extends Component {
             capture
             onChange={this.handleCapture}
           />
-          <br/>
+          <br />
           <button type="submit" onClick={this.submitPhoto} disabled={this.state.isDisabled} >Submit</button>
         </form>
       </div>
