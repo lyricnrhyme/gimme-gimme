@@ -7,7 +7,8 @@ class Camera extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      photo: null
+      photo: null,
+      badImage: false
     }
   }
 
@@ -31,6 +32,8 @@ class Camera extends Component {
               roomID: this.props.roomId,
               userName: this.props.user
             })
+          } else {
+            this.setState({ badImage: true });
           }
         })
     }
@@ -39,6 +42,11 @@ class Camera extends Component {
   render() {
     return (
       <div className="Camera">
+        {
+          this.state.badImage
+            ? <span>Not what I wanted! Show me something else!</span>
+            : null
+        }
         <form>
           <input
             type='file'
