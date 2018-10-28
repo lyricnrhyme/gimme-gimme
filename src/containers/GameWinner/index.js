@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import io from 'socket.io-client';
 import './styles.css';
 
 class GameWinner extends Component {
@@ -13,9 +14,12 @@ class GameWinner extends Component {
       redirect: false,
       players: null,
     }
+
+    this.socket = null;
   }
 
   componentDidMount() {
+    this.socket = io();
     const roomID = this.props.match.params.id;
     this.setState({ roomID: roomID })
     axios.get(`/api/rooms/${roomID}/results`)
@@ -27,7 +31,12 @@ class GameWinner extends Component {
         if (response.data.players) {
           this.setState({ players: response.data.players })
         }
+
+        return true;
       })
+    this.socket.emit('END_ROUND', {
+      roomID: roomID
+    })
   }
 
   replay = e => {

@@ -16,22 +16,13 @@ class GamePlay extends Component {
       winner: null
     }
     this.socket = io();
+    
     this.socket.on('WINNER', username => {
       console.log(`${username} won this round!`)
-      this.setState({ winner: username })
-      this.setState({ redirect: true })
-    })
-
-    this.socket.on('TICK', countdown => {
-      if (countdown === 0) {
-        this.setState({
-          redirect: true
-        })
-      } else {
-        this.setState({
-          countdown: countdown
-        })
-      }
+      this.setState({
+        winner: username,
+        redirect: true
+      })
     })
 
     this.socket.on('TICK', countdown => {
@@ -55,29 +46,22 @@ class GamePlay extends Component {
 
   componentDidMount() {
     let roomID = this.props.match.params.id;
-    this.setState({ roomID: roomID })
+    this.setState({
+      roomID: roomID,
+    })
     this.socket.emit('START_GAME', {
       roomID: roomID,
     })
   }
 
-  tick() {
-    if (this.state.countdown === 0) {
-      this.setState({
-        redirect: true
-      })
-    }
-  }
-
-
-  render() {
-    if (this.state.redirect && this.state.winner) {
+  render() {    
+    if (this.state.redirect) {
       return (
         <Redirect to={{
           pathname: `/rooms/${this.state.roomID}/results`,
           state: {
             userName: this.props.location.state.userName,
-            winner: this.state.winner
+            winner: this.state.winner || null
           }
         }} />
       )
@@ -91,7 +75,9 @@ class GamePlay extends Component {
               : null
           }
         </div>
-        <div>{this.state.countdown}</div>
+        <div>
+          {this.state.countdown}
+        </div>
         {
           this.state.roomID
             && this.state.prompt
