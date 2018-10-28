@@ -30,7 +30,7 @@ const io = socket(app);
 io.on('connection', socket => {
   socket.on('CREATE', data => {
     socket.join(data.roomID);
-    let countdown = 60;
+    let countdown = 30;
 
     const timer = setInterval(() => {
       io.to(data.roomID).emit('TICK', countdown)
