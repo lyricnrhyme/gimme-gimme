@@ -63,7 +63,7 @@ class GamePlay extends Component {
           pathname: `/rooms/${this.state.roomID}/results`,
           state: {
             userName: this.props.location.state.userName,
-            winner: this.state.winner || ''
+            winner: this.state.winner || null
           }
         }} />
       )
