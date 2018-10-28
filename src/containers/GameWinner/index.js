@@ -13,7 +13,6 @@ class GameWinner extends Component {
       redirect: false,
       players: null,
     }
-
     this.socket = null;
   }
 
@@ -39,20 +38,22 @@ class GameWinner extends Component {
 
   replay = e => {
     e.preventDefault();
-    // this.setState({ redirect: true })
     window.location.replace(`${window.location.origin}`)
   }
 
   render() {
-    // if (this.state.redirect) {
-    //   return (
-    //     <Redirect to="/" />
-    //   )
-    // }
     if (this.props.location.state.winner) {
       return (
         <div className="GameWinner">
-          <div className="game-winner">Winner: {this.state.winner}</div>
+          <div className="game-winner">
+            Winner:
+          {/* <div className="winner-name">
+              {this.state.winner}
+          </div>   */}
+          </div>
+          <div className="winner-name">
+              {this.state.winner}
+          </div>  
           <div className="winning-photo">
             <img src={this.state.winningPhoto} alt="" />
           </div>
@@ -62,7 +63,7 @@ class GameWinner extends Component {
     }
     return (
       <Fragment>
-        <div>No Winners Today, Try Again?</div>
+        <div className="no-winner">No Winners Today, Try Again?</div>
         <button onClick={this.replay}>Play Again</button>
       </Fragment>
     )

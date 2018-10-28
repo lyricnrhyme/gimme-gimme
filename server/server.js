@@ -75,7 +75,6 @@ io.on('connection', socket => {
       }
     }, 1000)
     io.emit('WINNER', data.userName);
-
   });
 
   socket.on('END_ROUND', data => {
@@ -91,8 +90,4 @@ io.on('connection', socket => {
     //   }
     // }, 1000)
   });
-
-  socket.on('REDIRECT', () => {
-    io.emit('MOVE_TO_NEXT_ROUND', { redirect: true })
-  })
 });

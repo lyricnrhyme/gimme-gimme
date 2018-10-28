@@ -1,0 +1,61 @@
+.GameWinner {
+    color: grey;
+    text-align: center;
+    margin-top: 5%;
+}
+
+.game-winner {
+    font-size: 35px;
+    color: white;
+    font-weight: bold;
+    text-shadow: 4px 2px rgba(0,0,0,0.3);
+    opacity:0;
+    animation: fadein 3s forwards;
+    /* animation-duration: 3s; */
+    animation-delay: 1s;
+}
+
+.winner-name {
+    margin: 2%;
+    font-size: 50px;
+    color: white;
+    font-weight: bold;
+    text-shadow: 4px 2px rgba(0,0,0,0.3);
+    opacity: 0;
+    animation: fadein 3s forwards;
+    animation-delay: 3s;
+    /* animation-name: winner;
+    animation-duration: 3s;
+    animation-delay: 1s */
+}
+
+img {
+    margin: 5%;
+    height: 25%;
+    width: 25%;
+    opacity: 0;
+    animation: fadein 3s forwards;
+    animation-delay: 2s;
+}
+
+@keyframes winner {
+    from {top: 100vh}
+    to {top: 0vh}
+    100% {transform: rotate(360deg)}
+}
+
+@keyframes fadein {
+    from {opacity:0}
+    to {opacity: 1}
+}
+
+.no-winner {
+    font-size: 35px;
+    color: white;
+    font-weight: bold;
+    text-shadow: 4px 2px rgba(0,0,0,0.3);
+    opacity:0;
+    animation: fadein 3s forwards;
+    /* animation-duration: 3s; */
+    animation-delay: 1s;
+}

@@ -1,12 +1,45 @@
 .PlayerList {
     color: grey;
-    margin-top: 10%;
+    margin-top: 5%;
 }
 
+.CodeCounter {
+    color: grey;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 30px;
+    text-align: center;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    padding: 4%;
+    width: 5%;
+    box-shadow: 4px 2px rgba(0,0,0,0.3)
+}
+
+.room-success {
+    margin: 5% 0 2% 0;
+    text-align: center;
+}
+
+.player-name-list {
+
+    text-align: center;
+}
+
+.players-list {
+    text-align: center;
+}
+
+ul {
+    list-style: none;
+    margin-left: -5%;
+}
+
+/* 
 .loader {
-    border: 3px solid white;
-    width: 100px;
-    height: 100px;
+    border: 3px solid black;
+    width: 50%;
+    height: 50%;
     border-radius: 50%;
     border-left-color: transparent;
     animation: rotate 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
@@ -41,7 +74,7 @@
     border-left-color: transparent;
     border-right-color: transparent;
     animation: rotate 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
-}
+} */
 
 /* #loader4 {
     border: 3px solid white;
@@ -55,7 +88,7 @@
     animation: rotate2 2s cubic-bezier(0.26, 1.36, 0.74, -0.29) infinite;
 } */
 
-@keyframes rotate {
+/* @keyframes rotate {
     0% {transform:rotateZ(-360deg)}
     100% {transform:rotateZ(0deg)}
 }
@@ -63,32 +96,4 @@
 @keyframes rotate2 {
     0% {transform: rotateZ(360deg)}
     100% {transform: rotateZ(0deg)}
-}
-
-.CodeCounter {
-    color: grey;
-    font-family: 'Varela Round', sans-serif;
-    font-size: 30px;
-    position: relative;
-    top: -340px;
-    left: 45%; 
-}
-
-.room-success {
-    margin-top: -70%;
-    text-align: center;
-}
-
-.player-name-list {
-    margin-top: 10px;
-    text-align: center;
-}
-
-.players-list {
-    text-align: center;
-}
-
-ul {
-    list-style: none;
-    margin-left: -10%;
-}
+} */
