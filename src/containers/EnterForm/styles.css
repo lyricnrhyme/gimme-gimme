@@ -74,6 +74,15 @@
   color: red;
 }
 
+#vote-moar {
+  width: 200px;
+  margin: 0 auto;
+  margin-top: 25px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+}
+
 @keyframes fadein {  
   from {opacity: 0}
   to {opacity: 1}
