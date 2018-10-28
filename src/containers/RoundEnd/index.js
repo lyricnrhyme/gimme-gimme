@@ -11,11 +11,13 @@ class RoundEnd extends Component {
     super(props)
     this.state = {
       finalRedirect: false,
+      finalWinner: null,
       countdown: null,
       roomID: null,
       players: [],
       photo: null,
-      redirect: false
+      redirect: false,
+      winner: null
     }
     this.socket = io();
     this.socket.on('ROUND_END', countdown => {
@@ -39,15 +41,19 @@ class RoundEnd extends Component {
     })
     axios.get(`/api/rooms/${roomID}/scores`)
       .then(response => {
-        if (!response.data.round) {
-          return this.setState({ finalRedirect: true })
-        } else {
-          this.setState({ players: response.data.players })
-          this.setState({ photo: response.data.winningPhoto })
-          io().emit('END_ROUND', { roomID: roomID });
-        }
+        // response.data.players.map(player => {
+        //   if (player.score > 2) {
+        //     return this.setState({
+        //       finalWinner: player,
+        //       finalRedirect: true
+        //     })
+        //   }
+        // })
+        this.setState({ winner: response.data.winner })
+        this.setState({ players: response.data.players })
+        this.setState({ photo: response.data.winningPhoto })
+        io().emit('END_ROUND', { roomID: roomID });
       })
-    console.log('???', this.state.countdown)
   }
 
   tick() {
@@ -69,16 +75,17 @@ class RoundEnd extends Component {
         }} />
       )
     }
-    if (this.state.finalRedirect) {
-      return (
-        <Redirect to={{
-          pathname: `/rooms/${this.state.roomID}/results`,
-          state: {
-            userName: this.props.location.state.userName
-          }
-        }} />
-      )
-    }
+    // if (this.state.finalRedirect) {
+    //   return (
+    //     <Redirect to={{
+    //       pathname: `/rooms/${this.state.roomID}/results`,
+    //       state: {
+    //         userName: this.props.location.state.userName,
+    //         winner: this.state.finalWinner
+    //       }
+    //     }} />
+    //   )
+    // }
     return (
       <div className="RoundEnd">
         <RoundWinner

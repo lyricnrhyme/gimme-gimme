@@ -13,7 +13,8 @@ class GamePlay extends Component {
       countdown: null,
       roomID: null,
       redirect: false,
-      winner: null
+      winner: null,
+      finalRedirect: null,
     }
     this.socket = io();
 
@@ -42,6 +43,19 @@ class GamePlay extends Component {
         prompt: prompt
       })
     })
+
+    this.socket.on('REDIRECT', winner => {
+      this.setState({
+        redirect: true,
+        winner: winner
+      })
+    })
+
+    this.socket.on('TO_RESULTS', data => {
+      this.setState({
+        finalRedirect: true,
+      })
+    })
   }
 
   componentDidMount() {
@@ -59,6 +73,16 @@ class GamePlay extends Component {
       return (
         <Redirect to={{
           pathname: `/rooms/${this.state.roomID}/scores`,
+          state: {
+            userName: this.props.location.state.userName,
+            winner: this.state.winner || null
+          }
+        }} />
+      )
+    } else if (this.state.finalRedirect) {
+      return (
+        <Redirect to={{
+          pathname: `/rooms/${this.state.roomID}/results`,
           state: {
             userName: this.props.location.state.userName,
             winner: this.state.winner || null

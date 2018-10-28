@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { createRoom, generatePrompt } = require('../helpers');
+const { createRoom } = require('../helpers');
 
 const aws = require('aws-sdk');
 const multer = require('multer');
@@ -61,7 +61,6 @@ router.route('/')
         score: 0
       }],
       winner: null,
-      // round: 1,
       winningPhoto: ''
     })
 
@@ -92,21 +91,21 @@ router.route('/:id')
         if (room.roomID === roomID) {
           let nameCheck = room.players.some(player => player.name === playerName)
           // if (nameCheck) {
-            room.players.push({
-              name: playerName,
-              score: 0
-            });
-            return res.json({
-              roomID: room.roomID
-            })
-        //   } else {
-        //     return res.json({ message: `Player name taken in this room!` })
-        //   }
-        // } else {
-        //   return res.json({ message: `Room doesn't exist!` })
+          room.players.push({
+            name: playerName,
+            score: 0
+          });
+          return res.json({
+            roomID: room.roomID
+          })
+          //   } else {
+          //     return res.json({ message: `Player name taken in this room!` })
+          //   }
+          // } else {
+          //   return res.json({ message: `Room doesn't exist!` })
         }
       })
-    }  
+    }
   });
 
 router.post('/:id/images', upload.single('photo'), (req, res) => {
@@ -115,30 +114,36 @@ router.post('/:id/images', upload.single('photo'), (req, res) => {
   const { prompt, player } = req.body;
   let params = { url };
   let matchSuccess = false;
+  let finalRedirect = false;
   visualRecognition.classify(params, (err, response) => {
     if (err) console.log(err);
     else {
       let classifications = Object.values(response.images[0].classifiers[0].classes);
-      classifications.map(result => {
-        if (result.class.includes(prompt) && result.score > 0.5) {
-          rooms.map(room => {
-            if (room.roomID === roomID) {
-              room.winningPhoto = url;
-              room.winner = player;
-              matchSuccess = true;
-              // room.players.map(participants => {
-              //   if (participants.name === player) {
-              //     participants.score += 1;
-              //   }
-              // })
-            }
-          })
-        }
-      })
-      if (matchSuccess) {
-        res.json({ success: true })
+      let matchingClassification = classifications.find(result => result.class.includes(prompt) && result.score > 0.5);
+      if (matchingClassification) {
+        rooms.map(room => {
+          if (room.roomID === roomID) {
+            room.players.map(participant => {
+              if (participant.name === player) {
+                room.winner = player;
+                room.winningPhoto = url;
+                participant.score++;
+                if (participant.score > 2) {
+                  finalRedirect = true;
+                }
+                matchSuccess = true;
+              }
+            })
+          }
+        })
+      }
+      if (matchSuccess && finalRedirect) {
+        return res.json({ success: true, finalRedirect: true })
+      }
+      else if (matchSuccess) {
+        return res.json({ success: true })
       } else {
-        res.json({ success: false })
+        return res.json({ success: false })
       }
     }
   })
@@ -148,14 +153,11 @@ router.get('/:id/scores', (req, res) => {
   const roomID = req.params.id;
   rooms.map(room => {
     if (room.roomID === roomID) {
-      if (room.round < 2) {
-        room.round += 1;
-      }
       res.json({
         winningPhoto: room.winningPhoto,
+        winner: room.winner,
         players: room.players,
         redirect: true,
-        round: room.round
       });
     } else {
       res.json({ redirect: null })
@@ -165,36 +167,17 @@ router.get('/:id/scores', (req, res) => {
 
 router.get('/:id/results', (req, res) => {
   const roomID = req.params.id;
-  // rooms.map(room => {
-  //   let finalResults = null;
-  //   if (room.roomID === roomID) {
-  //     let winner = null;
-  //     room.players.map(player => {
-  //       if (!winner) {
-  //         winner = player;
-  //       } else if (winner.score < player.score) {
-  //         winner = player
-  //       }
-  //       finalResults = {
-  //         winner,
-  //         winningPhoto: room.winningPhoto,
-  //         players: room.players.filter(player => player.name !== winner.name)
-  //       }
-  //     })
-  //     let index = rooms.indexOf(room);
-  //     rooms.splice(index, 1);
-  //     res.json(finalResults)
-  //   }
-  // })
-  rooms.map(room => {
-    if (room.roomID === roomID) {
-      res.json({
-        winner: room.winner,
-        winningPhoto: room.winningPhoto,
-        players: room.players.filter(player => player.name !== room.winner)
-      })
+  let room = rooms.filter(room => room.roomID === roomID);
+  let currentHighestScore;
+  room[0].players.map(participant => {
+    if (!currentHighestScore) {
+      currentHighestScore = participant;
+    } else if (currentHighestScore.score < participant.score) {
+      currentHighestScore = participant;
+      room.highestScore = currentHighestScore;
     }
   })
+  return res.json(room[0]);
 })
 
 module.exports = router;
