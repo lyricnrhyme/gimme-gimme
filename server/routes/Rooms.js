@@ -137,24 +137,24 @@ router.post('/:id/images', upload.single('photo'), (req, res) => {
   })
 });
 
-// router.get('/:id/scores', (req, res) => {
-//   const roomID = req.params.id;
-//   rooms.map(room => {
-//     if (room.roomID === roomID) {
-//       if (room.round < 2) {
-//         room.round += 1;
-//       }
-//       res.json({
-//         winningPhoto: room.winningPhoto,
-//         players: room.players,
-//         redirect: true,
-//         round: room.round
-//       });
-//     } else {
-//       res.json({ redirect: null })
-//     }
-//   })
-// })
+router.get('/:id/scores', (req, res) => {
+  const roomID = req.params.id;
+  rooms.map(room => {
+    if (room.roomID === roomID) {
+      if (room.round < 2) {
+        room.round += 1;
+      }
+      res.json({
+        winningPhoto: room.winningPhoto,
+        players: room.players,
+        redirect: true,
+        round: room.round
+      });
+    } else {
+      res.json({ redirect: null })
+    }
+  })
+})
 
 router.get('/:id/results', (req, res) => {
   const roomID = req.params.id;
