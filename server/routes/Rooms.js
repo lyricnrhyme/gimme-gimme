@@ -57,7 +57,11 @@ router.route('/')
     roomID = createRoom();
     rooms.push({
       roomID,
-      players: [playerName]
+      players: [{
+        name: playerName,
+        score: 0
+      }],
+      round: 1
     })
 
     return res.json({
@@ -68,7 +72,7 @@ router.route('/')
 router.route('/:id')
   .get((req, res) => {
     rooms.map(room => {
-      if (room.roomID === req.params.id) {        
+      if (room.roomID === req.params.id) {
         return res.json({
           players: room.players
         });
@@ -81,7 +85,10 @@ router.route('/:id')
 
     rooms.map(room => {
       if (room.roomID === id) {
-        room.players.push(playerName);
+        room.players.push({
+          name: playerName,
+          score: 0
+        });
 
         return res.json({
           roomID: room.roomID
@@ -100,7 +107,8 @@ router.get('/:id/images', (req, res) => {
 
 router.post('/:id/images', upload.single('photo'), (req, res) => {
   const url = req.file.location;
-  const { prompt } = req.body;
+  const roomID = req.params.id;
+  const { prompt, player } = req.body;
   let params = { url }
   // let classifiedResults;
   // let classifyPromise = new Promise((resolve, reject) => {
@@ -110,17 +118,38 @@ router.post('/:id/images', upload.single('photo'), (req, res) => {
       let classifications = Object.values(response.images[0].classifiers[0].classes);
       classifications.map(result => {
         if (result.class === prompt && result.score > 0.5) {
+          rooms.map(room => {
+            if (room.roomID === roomID) {
+              room.players.map(participants => {
+                if (participants.name === player) {
+                  participants.score += 1;
+                }
+              })
+            }
+          })
           res.json({ success: true })
         }
       })
     }
   })
-  // })
-  // classifyPromise
-  // .then(result => {
-  // res.json(result);
-  // })
 });
+
+router.get('/:id/scores', (req, res) => {
+  const roomID = req.params.id;
+  rooms.map(room => {
+    if (room.roomID === roomID) {
+      room.round += 1;
+      if (room.round < 5) {
+        res.json(room.players);
+      } else {
+        res.json({
+          redirect: true,
+          players: room.players
+        })
+      }
+    }
+  })
+})
 
 
 module.exports = router;

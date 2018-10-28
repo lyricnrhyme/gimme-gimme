@@ -6,7 +6,7 @@ function Prompt(props) {
     <div className="Prompt">
       <div className="prompt-container">
         <div>
-          Gimme gimme something...
+          Gimme gimme ...
           <span>{props.prompt}</span>
         </div>
       </div>

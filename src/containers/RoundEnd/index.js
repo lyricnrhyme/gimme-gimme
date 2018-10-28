@@ -16,20 +16,38 @@ class RoundEnd extends Component {
       redirect: false
     }
     this.tick = this.tick.bind(this);
-<<<<<<< HEAD
     this.stopTimer = this.stopTimer.bind(this);
-=======
->>>>>>> development
   }
 
   componentDidMount() {
     let timer = setInterval(this.tick, 1000);
     this.setState({ timer });
+      count: 10,
+      redirect: false,
+      players: []
+    }
+    // this.tick = this.tick.bind(this);
   }
 
-  componentWillUnmount() {
-    clearInterval(this.state.timer);
+  componentDidMount() {
+    const roomID = this.props.match.params.id;
+    // let timer;
+    // if (this.state.count !== 0) {
+    //   let timer = setTimeout(this.tick, 1000);
+    //   this.setState({timer});
+    // } else {
+    //   timer = clearInterval(this.tick);
+    //   this.setState({timer});
+    // }
+    axios.get(`/api/rooms/${roomID}/scores`)
+      .then(response => {
+        this.setState({ players: response.data })
+      })
   }
+
+  // componentWillUnmount() {
+  //   clearInterval(this.state.timer);
+  // }
 
   tick() {
     if (this.state.count === 0) {
@@ -60,9 +78,13 @@ class RoundEnd extends Component {
     }
     return (
       <div className="RoundEnd">
-        <RoundWinner/>
+        <RoundWinner userName={this.props.location.state.winner} />
         {this.state.count}
-        <ScoreBoard/>
+        {
+          this.state.players
+            ? <ScoreBoard players={this.state.players} />
+            : null
+        }
       </div>
     );
   }

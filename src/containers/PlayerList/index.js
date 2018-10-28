@@ -10,12 +10,11 @@ class PlayerList extends Component {
     super(props)
     this.state = {
       timer: null,
-      count: 10,
+      countdown: null,
       redirect: false,
       players: []
     }
-    this.tick = this.tick.bind(this);
-    this.stopTimer = this.stopTimer.bind(this);
+
     this.socket = io();
     this.socket.on('JOINED', userName => {
       console.log(`${userName} has joined!`);
@@ -25,13 +24,22 @@ class PlayerList extends Component {
         })
       }
     })
+
+    this.socket.on('TICK', countdown => {
+      if (countdown === 0) {
+        this.setState({
+          redirect: true
+        })
+      } else {
+        this.setState({
+          countdown: countdown
+        })
+      }
+    })
   }
 
   componentDidMount() {
-    let timer = setInterval(this.tick, 1000);
     let roomID = this.props.match.params.id;
-
-    this.setState({ timer });
 
     if (this.props.location.state.roomCreated) {
       this.socket.emit('CREATE', {
@@ -47,24 +55,21 @@ class PlayerList extends Component {
 
     axios.get(`/api/rooms/${roomID}`)
       .then(response => {
-        this.setState({ players: response.data.players })
+        console.log(response.data.players)
+        response.data.players.map(player => {
+          this.setState({ players: [...this.state.players, player.name] })
+        })
+        // this.setState({ players: response.data.players })
       })
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.state.timer);
   }
 
   tick() {
     if (this.state.count === 0) {
       this.setState({
-        timer: null
-      })
-      this.stopTimer();
-      this.setState({
         redirect: true
       })
     }
+<<<<<<< HEAD
     this.setState({
       count: this.state.count - 1
     })
@@ -73,6 +78,8 @@ class PlayerList extends Component {
   stopTimer() {
     let timer = clearInterval(this.state.timer);
     this.setState({ timer })
+=======
+>>>>>>> development
   }
 
   render() {
@@ -89,7 +96,13 @@ class PlayerList extends Component {
     return (
       <div className="PlayerList">
         <div className='CodeCounter'>
+<<<<<<< HEAD
           <h1>{this.state.count}</h1>
+=======
+          <h1>Put Code Here</h1>
+          {/* <Counter seconds={this.state.seconds}/> */}
+          {this.state.countdown}
+>>>>>>> development
         </div>
         <div className="room-success">Success! Room ID:
           <span>{this.props.match.params.id}</span>
