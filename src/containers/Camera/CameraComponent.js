@@ -8,13 +8,14 @@ class Camera extends Component {
     super(props)
     this.state = {
       photo: null,
-      badImage: false
+      badImage: false,
+      isDisabled: false
     }
   }
 
   handleCapture = e => {
     const file = e.target.files[0];
-    this.setState({ photo: file })
+    this.setState({ photo: file , isDisabled: false, badImage:false})
   }
 
   submitPhoto = e => {
@@ -33,13 +34,14 @@ class Camera extends Component {
               userName: this.props.user
             })
           } else {
-            this.setState({ badImage: true });
+            this.setState({ badImage: true, isDisabled: true });
           }
         })
     }
   }
 
   render() {
+    console.log('isDisabled', this.state.isDisabled);
     return (
       <div className="Camera">
         {
@@ -48,13 +50,14 @@ class Camera extends Component {
             : null
         }
         <form>
-          <input
+          <input className="uploadFile"
             type='file'
             accept='image/*'
             capture
             onChange={this.handleCapture}
           />
-          <button onClick={this.submitPhoto}>Submit</button>
+          <br/>
+          <button type="submit" onClick={this.submitPhoto} disabled={this.state.isDisabled} >Submit</button>
         </form>
       </div>
     );

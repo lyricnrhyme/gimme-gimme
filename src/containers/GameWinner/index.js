@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import io from 'socket.io-client';
 import './styles.css';
@@ -40,15 +39,16 @@ class GameWinner extends Component {
 
   replay = e => {
     e.preventDefault();
-    this.setState({ redirect: true })
+    // this.setState({ redirect: true })
+    window.location.replace(`${window.location.origin}`)
   }
 
   render() {
-    if (this.state.redirect) {
-      return (
-        <Redirect to="/" />
-      )
-    }
+    // if (this.state.redirect) {
+    //   return (
+    //     <Redirect to="/" />
+    //   )
+    // }
     if (this.props.location.state.winner) {
       return (
         <div className="GameWinner">

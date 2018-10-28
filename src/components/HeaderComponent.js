@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import './HeaderComponent.css';
-import gimme from '../assets/gimme.png'
 
 class Header extends Component {
   render() {
-    console.log('gimme', gimme)
     return (
       <div className="Header">
         {/* <img src={gimme}/>   */}
