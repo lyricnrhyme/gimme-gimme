@@ -27,14 +27,18 @@ class Camera extends Component {
       form.append('photo', this.state.photo);
       form.append('prompt', this.props.prompt);
 
-      io().emit('SUBMIT_PHOTO', {
-        roomId: this.props.roomId,
-      })
-
       axios.post(`/api/rooms/${this.props.roomId}/images`, form)
         .then(response => {
-          console.log(response);
+          if (response.data.success) {
+            io().emit('WIN_ROUND', {
+              roomID: this.props.roomId,
+              userName: this.props.user
+            })
+          }
         })
+        // .then(() => {
+        //   this.props.roundWin()
+        // })
     }
   }
 

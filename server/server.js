@@ -20,18 +20,26 @@ const app = server.listen(PORT, () => {
 
 const io = socket(app);
 
-<<<<<<< HEAD
 io.on('connection', socket => {
-  console.log('connection attempt');
-=======
-io.on('connection', socket => {  
-  socket.on('CREATE', data => {    
+  socket.on('CREATE', data => {
     socket.join(data.roomID);
   })
 
->>>>>>> development
   socket.on('JOIN', data => {
     socket.join(data.roomID);
     io.to(data.roomID).emit('JOINED', data.userName);
+  })
+
+  socket.on('START_GAME', startData => {
+    console.log('start game');
+  });
+
+  socket.on('WIN_ROUND', data => {
+    console.log(data);
+    io.emit('WINNER', data.userName);
+  });
+
+  socket.on('REDIRECT', () => {
+    io.emit('MOVE_TO_NEXT_ROUND', { redirect: true })
   })
 });

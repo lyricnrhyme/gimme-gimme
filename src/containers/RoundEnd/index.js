@@ -15,7 +15,6 @@ class RoundEnd extends Component {
       redirect: false
     }
     this.tick = this.tick.bind(this);
-    this.clearInterval = this.clearInterval.bind(this);
   }
 
   componentDidMount() {
