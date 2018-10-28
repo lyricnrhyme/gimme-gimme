@@ -25,11 +25,7 @@ const app = server.listen(PORT, () => {
 
 const io = socket(app);
 
-<<<<<<< HEAD
 io.on('connection', socket => {  
-=======
-io.on('connection', socket => {
->>>>>>> development
   socket.on('CREATE', data => {
     socket.join(data.roomID);
 
