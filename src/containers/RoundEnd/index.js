@@ -22,11 +22,6 @@ class RoundEnd extends Component {
   componentDidMount() {
     let timer = setInterval(this.tick, 1000);
     this.setState({ timer });
-      count: 10,
-      redirect: false,
-      players: []
-    }
-    // this.tick = this.tick.bind(this);
   }
 
   componentDidMount() {
@@ -89,5 +84,4 @@ class RoundEnd extends Component {
     );
   }
 }
-
 export default RoundEnd;
