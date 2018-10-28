@@ -119,6 +119,7 @@ router.post('/:id/images', upload.single('photo'), (req, res) => {
     if (err) console.log(err);
     else {
       let classifications = Object.values(response.images[0].classifiers[0].classes);
+      // console.log('classifications', classifications);
       let matchingClassification = classifications.find(result => result.class.includes(prompt) && result.score > 0.5);
       if (matchingClassification) {
         rooms.map(room => {
