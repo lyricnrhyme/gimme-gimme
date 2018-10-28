@@ -41,22 +41,18 @@ class RoundEnd extends Component {
     })
     axios.get(`/api/rooms/${roomID}/scores`)
       .then(response => {
-        response.data.players.map(player => {
-          if (player.score > 2) {
-            return this.setState({
-              finalWinner: player,
-              finalRedirect: true
-            })
-          }
-        })
-        // if (!response.data.finalRedirect) {
+        // response.data.players.map(player => {
+        //   if (player.score > 2) {
+        //     return this.setState({
+        //       finalWinner: player,
+        //       finalRedirect: true
+        //     })
+        //   }
+        // })
         this.setState({ winner: response.data.winner })
         this.setState({ players: response.data.players })
         this.setState({ photo: response.data.winningPhoto })
         io().emit('END_ROUND', { roomID: roomID });
-        // } else {
-        //   this.setState({ finalRedirect: true })
-        // }
       })
   }
 
@@ -79,17 +75,17 @@ class RoundEnd extends Component {
         }} />
       )
     }
-    if (this.state.finalRedirect) {
-      return (
-        <Redirect to={{
-          pathname: `/rooms/${this.state.roomID}/results`,
-          state: {
-            userName: this.props.location.state.userName,
-            winner: this.state.finalWinner
-          }
-        }} />
-      )
-    }
+    // if (this.state.finalRedirect) {
+    //   return (
+    //     <Redirect to={{
+    //       pathname: `/rooms/${this.state.roomID}/results`,
+    //       state: {
+    //         userName: this.props.location.state.userName,
+    //         winner: this.state.finalWinner
+    //       }
+    //     }} />
+    //   )
+    // }
     return (
       <div className="RoundEnd">
         <RoundWinner
