@@ -85,8 +85,12 @@ class PlayerList extends Component {
     }
     return (
       <div className="PlayerList">
-        <div className='CodeCounter'>
-          <h1>Put Code Here</h1>
+        <div className="loader" id="loader1"></div>
+        <div className="loader" id="loader2"></div>
+        <div className="loader" id="loader3"></div>
+        {/* <div className="loader" id="loader4"></div> */}
+        <div className="CodeCounter">
+          {/* <h1>Put Code Here</h1> */}
           {/* <Counter seconds={this.state.seconds}/> */}
           {this.state.countdown}
         </div>
@@ -94,6 +98,7 @@ class PlayerList extends Component {
           <span>{this.props.match.params.id}</span>
         </div>
         <div className="player-name-list">Players Joined:</div>
+        <div className="players-list">
         <ul>
           {this.state.players
             ? this.state.players.map((player, idx) => {
@@ -105,7 +110,8 @@ class PlayerList extends Component {
             })
             : null
           }
-        </ul>
+          </ul>
+        </div>  
       </div>
     );
   }
