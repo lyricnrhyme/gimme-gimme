@@ -5,16 +5,21 @@
     background: transparent;
     text-align: center;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 40px;
-    margin-left: 15px;
     color: white;
     font-size: 25px;
     font-family: 'Varela Round', sans-serif;
     animation: fadein 3s forwards;
   }
-  
+
+  #Rules {
+    width: 90%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
   h1 span {
     position: relative;
     top: 20px;

@@ -86,3 +86,18 @@ a {
   text-decoration: none;
   color: white;
 }
+
+
+.HowToPlay {
+  font-family: 'Varela Round', sans-serif;
+  background-color: rgb(139, 213, 231);
+  border-radius: 6px;
+  padding: 8px;
+  width: 80%;
+  margin: auto;
+  color: white;
+}
+
+hr {
+  border: 1px solid white;
+}

@@ -9,6 +9,9 @@
   /* animation-iteration-count: 1; */
   animation-delay: 1s;
   font-family: 'Varela Round', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .EnterForm form {
@@ -20,15 +23,16 @@
   justify-content: center;
 }
 
-.joinForm {
-  margin-top: -50%;
+#joinForm {
+  margin-top: -215px;
+  text-align: center;
 }
 
 /*End Enter Form Page*/
 
 .EnterForm form label {
   font-size: 18px;
-  margin: 10px;
+  margin: 6px;
 }
 
 .EnterForm form input {
@@ -36,7 +40,7 @@
   height: 33px;
   /* padding: 5px; */
   font-size: 16px;
-  margin: 10px;
+  margin: 6px;
   color: grey;
   border: none;
   background: white;

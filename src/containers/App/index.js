@@ -13,6 +13,7 @@ import RoundEnd from '../RoundEnd';
 import Header from '../../components/HeaderComponent';
 import SoloMode from '../../components/SoloModeComponent';
 import Overlay from '../../components/OverlayComponent';
+import HowToPlay from '../../components/HowToPlayComponent';
 
 class App extends Component {
   render() {
@@ -23,6 +24,8 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact={true} path='/' component={EnterForm} />
+            <Route path='/solo' component={SoloMode} />
+            <Route path='/howtoplay' component={HowToPlay} />
             <Route exact={true} path='/rooms' component={EnterForm} />
             <Route path='/rooms/:id/solo' component={SoloMode} />
             <Route path='/rooms/:id/images' component={GamePlay} />

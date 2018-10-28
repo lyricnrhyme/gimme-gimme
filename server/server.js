@@ -30,7 +30,11 @@ const io = socket(app);
 io.on('connection', socket => {
   socket.on('CREATE', data => {
     socket.join(data.roomID);
+<<<<<<< HEAD
     let countdown = 30;
+=======
+    let countdown = 10;
+>>>>>>> jyama
 
     const timer = setInterval(() => {
       io.to(data.roomID).emit('TICK', countdown)
