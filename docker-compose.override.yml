@@ -6,7 +6,7 @@ services:
     container_name: ${CONTAINER_NAME}
     volumes:
       - ".:/app/:rw"
-    env_file: .env
+    env_file: .env.development.local
     environment:
       NODE_ENV: development
     ports:
