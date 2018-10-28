@@ -20,8 +20,8 @@
   justify-content: center;
 }
 
-#joinForm {
-  margin-top: -155px;
+.joinForm {
+  margin-top: -50%;
 }
 
 /*End Enter Form Page*/
@@ -68,3 +68,15 @@
   from {opacity: 0}
   to {opacity: 1}
 }
+
+@media only screen and (max-width: 360px) {
+  .joinForm {
+    margin-top: -40%;  }
+}
+
+@media only screen and (min-width: 450px) {
+  .EnterForm form {
+    margin-top: -5%;
+  }
+}
+
