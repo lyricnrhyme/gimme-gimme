@@ -91,9 +91,7 @@ class GamePlay extends Component {
               : null
           }
         </div>
-        <div className='CodeCounter'>
-          {this.state.countdown}
-        </div>
+        <div>{this.state.countdown}</div>
         {
           this.state.roomID
             && this.state.prompt
