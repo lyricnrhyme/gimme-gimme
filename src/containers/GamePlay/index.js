@@ -42,6 +42,13 @@ class GamePlay extends Component {
         prompt: prompt
       })
     })
+
+    this.socket.on('REDIRECT', winner => {
+      this.setState({
+        redirect: true,
+        winner: winner
+      })
+    })
   }
 
   componentDidMount() {

@@ -30,11 +30,7 @@ const io = socket(app);
 io.on('connection', socket => {
   socket.on('CREATE', data => {
     socket.join(data.roomID);
-<<<<<<< HEAD
-    let countdown = 30;
-=======
     let countdown = 10;
->>>>>>> origin/refactor-check
 
     const timer = setInterval(() => {
       io.to(data.roomID).emit('TICK', countdown)
@@ -69,6 +65,7 @@ io.on('connection', socket => {
   socket.on('WIN_ROUND', data => {
     socket.join(data.roomID)
     let countdown = 15;
+    io.to(data.roomID).emit('REDIRECT', data.userName)
 
     const timer = setInterval(() => {
       io.to(data.roomID).emit('ROUND_END', countdown)

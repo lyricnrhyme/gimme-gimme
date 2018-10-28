@@ -90,7 +90,7 @@ router.route('/:id')
     rooms.map(room => {
       if (room.roomID === roomID) {
         let nameCheck = room.players.some(player => player.name === playerName)
-        if (nameCheck) {
+        if (!nameCheck) {
           room.players.push({
             name: playerName,
             score: 0
@@ -119,24 +119,30 @@ router.post('/:id/images', upload.single('photo'), (req, res) => {
       let classifications = Object.values(response.images[0].classifiers[0].classes);
       classifications.map(result => {
         if (result.class.includes(prompt) && result.score > 0.5) {
-          rooms.map(room => {
-            if (room.roomID === roomID) {
-              room.winningPhoto = url;
-              room.winner = player;
-              matchSuccess = true;
-              // room.players.map(participants => {
-              //   if (participants.name === player) {
-              //     participants.score += 1;
-              //   }
-              // })
+          let selectedRoom = rooms.find(room => room.roomID === roomID);
+          selectedRoom.winningPhoto = url;
+          selectedRoom.winner = player;
+          matchSuccess = true;
+          selectedRoom.players.map(participant => {
+            if (participant.name === selectedRoom.winner.name) {
+              participant.score++
+            }
+          });
+          let currentHighestScore;
+          selectedRoom.players.map(participant => {
+            if (!currentHighestScore) {
+              currentHighestScore = participant;
+            } else if (currentHighestScore.score < participant.score) {
+              currentHighestScore = participant;
+              room.highestScore = currentHighestScore;
             }
           })
         }
       })
       if (matchSuccess) {
-        res.json({ success: true })
+        return res.json({ success: true })
       } else {
-        res.json({ success: false })
+        return res.json({ success: false })
       }
     }
   })
@@ -146,14 +152,11 @@ router.get('/:id/scores', (req, res) => {
   const roomID = req.params.id;
   rooms.map(room => {
     if (room.roomID === roomID) {
-      if (room.round < 2) {
-        room.round += 1;
-      }
       res.json({
         winningPhoto: room.winningPhoto,
+        winner: room.winner,
         players: room.players,
         redirect: true,
-        round: room.round
       });
     } else {
       res.json({ redirect: null })
@@ -163,36 +166,14 @@ router.get('/:id/scores', (req, res) => {
 
 router.get('/:id/results', (req, res) => {
   const roomID = req.params.id;
-  // rooms.map(room => {
-  //   let finalResults = null;
-  //   if (room.roomID === roomID) {
-  //     let winner = null;
-  //     room.players.map(player => {
-  //       if (!winner) {
-  //         winner = player;
-  //       } else if (winner.score < player.score) {
-  //         winner = player
-  //       }
-  //       finalResults = {
-  //         winner,
-  //         winningPhoto: room.winningPhoto,
-  //         players: room.players.filter(player => player.name !== winner.name)
-  //       }
-  //     })
-  //     let index = rooms.indexOf(room);
-  //     rooms.splice(index, 1);
-  //     res.json(finalResults)
-  //   }
-  // })
-  rooms.map(room => {
-    if (room.roomID === roomID) {
-      res.json({
-        winner: room.winner,
-        winningPhoto: room.winningPhoto,
-        players: room.players.filter(player => player.name !== room.winner)
-      })
-    }
-  })
+  // let room = rooms.filter(room => room.roomID === roomID)
+  // let players = room.players.filter(player => player.name !== room.highestScore.name)
+  // room.finalResults = {
+  //   winner: room.highestScore,
+  //   players: players,
+  // }
+  // rooms = rooms.filter(room => room.roomID !== roomID);
+  // res.json(room.finalResults);
 })
 
 module.exports = router;

@@ -9,11 +9,11 @@ function Player(props) {
           ? <div className="player-name">{props.player.name}</div>
           : <div className="player-name">{props.player}</div>
       }
-      {/* {
+      {
         props.player.score
-          ? <div className="player-score">{props.player.score}</div>
+          ? <div className="player-score">Score: {props.player.score}</div>
           : null
-      } */}
+      }
     </div>
   );
 }
