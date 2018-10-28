@@ -42,6 +42,7 @@
 }
 
 .EnterForm form input {
+  text-align: center;
   width: 40%;
   height: 33px;
   /* padding: 5px; */
@@ -76,15 +77,6 @@
 
 .error-message {
   color: red;
-}
-
-#vote-moar {
-  width: 200px;
-  margin: 0 auto;
-  margin-top: 25px;
-  text-align: center;
-  font-size: 25px;
-  font-weight: bold;
 }
 
 @keyframes fadein {  
