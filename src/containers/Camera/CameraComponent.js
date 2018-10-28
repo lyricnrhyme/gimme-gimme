@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import io from 'socket.io-client';
 import './styles.css';
-import { spawn } from 'child_process';
 
 class Camera extends Component {
   constructor(props) {
